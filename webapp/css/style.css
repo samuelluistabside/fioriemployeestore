@@ -2,3 +2,87 @@
 .customListItem  {
     height: 125px; /* Set the desired height in pixels or other units */
 }
+
+.productimage {
+    height: 80px;
+    width: 80px;
+    margin-left: 5px;
+}
+
+.customListItem .sapMFlexBox {
+    justify-content: space-between;
+}
+
+.customListItem .sapMObjectNumber {
+    flex-shrink: 0;
+    margin-left: auto;
+}
+
+.vboxrigth{
+    margin-right: 5px;
+}
+
+.object-header-title {
+    
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    justify-self: center;
+    align-self: center;
+    justify-content: center;
+    justify-items: center;
+    align-content: center;
+    align-items: center;
+
+
+  }
+.credit_available{
+    text-align: center;
+    justify-self: center;
+    align-self: center;
+}
+
+  .sapUiGreen {
+    color: green;
+}
+
+.sapUiNegative {
+    color: red;
+}
+
+.Available {
+    color: green !important;
+  }
+  
+  .availabilityText {
+    display: inline-block; /* This ensures that the color styling is applied */
+}
+  .available {
+    color: green;
+}
+
+.not-available {
+    color: red;
+}
+.availability{
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.centerbox{
+  
+    justify-content: center;
+    justify-items: center;
+    align-content: center;
+    text-align: center;
+    align-items: center;
+    
+}
+[data-style-class=Available] {
+    color: green !important;
+    background-color:blue;
+   }
+
+[data-style-class=sapUiNegative] {
+    color: red !important
+   }
