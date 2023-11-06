@@ -68,12 +68,12 @@
     },
     "routing": {
       "config": {
-        "routerClass": "sap.m.routing.Router",
-        "viewType": "XML",
+        "routerClass": "sap.f.routing.Router",
+      "type": "View",
+				"viewType": "XML",
+				"controlId": "layout",
         "async": true,
         "viewPath": "employeestore.view",
-        "controlAggregation": "pages",
-        "controlId": "app",
         "clearControlAggregation": false
       },
       "routes": [
@@ -83,15 +83,34 @@
           "target": [
             "TargetMain"
           ]
-        }
+        },
+        {
+					"pattern": "Cart",
+					"name": "Cart",
+					"target": ["Cart"]
+				}
       ],
       "targets": {
         "TargetMain": {
           "viewType": "XML",
           "transition": "slide",
-          "clearControlAggregation": false,
+          "controlAggregation": "beginColumnPages",
           "viewId": "Main",
           "viewName": "Main"
+        },
+        "Cart": {
+					"name": "Cart",
+          "viewId": "Cart",
+					"controlAggregation": "midColumnPages",
+					"id": "Cart",
+          "viewName" : "Cart",
+          "viewType": "XML",
+					"title": {
+						"parts": [
+							"i18n>tabTitle",
+							"i18n>tableTitleCart"
+						]
+					}
         }
       }
     },

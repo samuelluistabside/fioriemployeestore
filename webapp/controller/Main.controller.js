@@ -3,18 +3,21 @@ sap.ui.define([
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
     "sap/ui/model/json/JSONModel",
+    "sap/ui/core/UIComponent",
+    "./BaseController",
 ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (Controller, Filter, FilterOperator, JSONModel) {
+    function (Controller, Filter, FilterOperator, JSONModel,UIComponent,BaseController) {
         "use strict";
 
-        return Controller.extend("employeestore.controller.Main", {
+        return BaseController.extend("employeestore.controller.Main", {
             onInit: function () {
 
+                
                 var ProductsData = new sap.ui.model.json.JSONModel("../model/Products.json");
-			    this.getView().setModel(ProductsData);
+			    this.getView().setModel(ProductsData,"ProductsData");
 
                 var UserData = new sap.ui.model.json.JSONModel();
 
@@ -42,7 +45,7 @@ sap.ui.define([
                 UserData.loadData("../model/UserData.json");
 
                 UserData.attachRequestCompleted(function() {
-                    console.log(UserData.getData());
+                    
 
                     var aUsers = UserData.getProperty("/User_Data");
                     for (var i = 0; i < aUsers.length; i++) {
@@ -66,23 +69,25 @@ sap.ui.define([
                 var filter = sap.ui.model.Filter("name", sap.ui.model.FilterOperator.EQ, oUser)
                 
 
-                //var filteredModel = UserData.bindList("/User_Data");
-                //console.log(filteredModel)
-                // Apply the filter to the JSON model.
-                //filteredModel.filter([filter]);
-
-                // Get the filtered data.
-                //var filteredData = filteredModel.getData();
-
-                // Display the filtered data.
-                //console.log(filteredData);
-                
-                
-            
-
-
 
             },
+
+            
+            
+  
+
+
+            /**
+		 * Navigate to the generic cart view
+		 * @param {sap.ui.base.Event} oEvent the button press event
+		 */
+		onToggleCart: function (oEvent) {
+			var bPressed = oEvent.getParameter("pressed");
+
+			this._setLayout(bPressed ? "One" : "Two");
+			this.getRouter().navTo(bPressed ? "Cart" : "Main");
+		},
+        
             formatter: {
                 formatAvailability: function(number_available) {
                     return number_available ? "Available " : "Not Available";

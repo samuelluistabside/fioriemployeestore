@@ -5,15 +5,14 @@
 
     <customHeader>
 			<Bar id="_IDGenBar1">
-				<contentMiddle>
-					<Title id="_IDGenTitle1"
+				
+				<contentRight>
+				<Title id="_IDGenTitle1"
 						level="H2"
 						/>
-				</contentMiddle>
-				<contentRight>
 					<ToggleButton id="_IDGenToggleButton1"
 						icon="sap-icon://cart"
-						pressed="{= ${appView>/layout}.startsWith('ThreeColumns') }"
+						pressed="{= ${appView>/layout}.startsWith('OneColumn') }"
 						tooltip="{i18n>toCartButtonTooltip}"
 						press=".onToggleCart">
 					</ToggleButton>
@@ -27,16 +26,16 @@
 
 		<List id="_IDGenList1"
 		headerText="Products"
-		items="{/Products}" >
+		items="{ProductsData>/Products}" >
 		<CustomListItem id="_IDGenCustomListItem1" class="customListItem">
         <FlexBox id="_IDGenFlexBox1" alignItems="Center">
             <items>
-			<Image id="_IDGenImage1" src="{image}" densityAware="false" class="productimage"/>
+			<Image id="_IDGenImage1" src="{ProductsData>image}" densityAware="false" class="productimage"/>
            
 		
 			     <VBox id="_IDGenVBox1" class="centerbox">
-                    <Text id="_IDGenObjectHeader1" text="{product_name}" class="object-header-title" />
-                      <ObjectAttribute class="credit_available" id="_IDGenObjectAttribute2" text="{path: 'credit_available', formatter: '.formatter.formatAvailabilitycredit'}" />
+                    <Text id="_IDGenObjectHeader1" text="{ProductsData>product_name}" class="object-header-title" />
+                      <ObjectAttribute class="credit_available" id="_IDGenObjectAttribute2" text="{path: 'ProductsData>credit_available', formatter: '.formatter.formatAvailabilitycredit'}" />
                 </VBox>
 
 			
@@ -45,13 +44,13 @@
 				<VBox id="_IDGenVBox2" class="vboxrigth">
 				<ObjectNumber id="_IDGenObjectNumber1"
                         number="{
-                            parts:[{path:'price'},{path:'CurrencyCode'}],
+                            parts:[{path:'ProductsData>price'},{path:'CurrencyCode'}],
                             type: 'sap.ui.model.type.Currency',
                             formatOptions: {showMeasure: false}
                         }"
                         unit="USD"
                     />
-                <ObjectAttribute class="availability" id="_IDGenObjectAttribute1" text="{path: 'number_available', formatter: '.formatter.formatAvailability'}" />
+                <ObjectAttribute class="availability" id="_IDGenObjectAttribute1" text="{path: 'ProductsData>number_available', formatter: '.formatter.formatAvailability'}" />
                  <Button tooltip="Add To Cart" id="_IDGenButton1" icon="sap-icon://cart-3" text="Add to Cart" press="AddtoCart" enabled="{= ${number_available} > 0}" />
                 </VBox>
 				
