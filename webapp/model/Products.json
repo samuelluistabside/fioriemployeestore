@@ -6,7 +6,7 @@
     {
         "product_name": "VS Cognac",
         "price": 50.00,
-        "number_available": 10,
+        "number_available": 5,
         "image": "../img/xo-courvoisier-cognac.png",
         "credit_available": true
     },

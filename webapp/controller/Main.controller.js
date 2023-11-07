@@ -98,10 +98,13 @@ sap.ui.define([
 			var oResourceBundle = this.getModel("i18n").getResourceBundle();
             
 			var oProduct = oEvent.getSource().getBindingContext("ProductsData").getObject();
+            oProduct.number_available = oProduct.number_available - 1;
             console.log(oProduct)
 			var oCartModel = this.getModel("cartProducts");
             console.log(oCartModel)
 			cart.addToCart(oResourceBundle, oProduct, oCartModel);
+            var oModel = this.getView().getModel("ProductsData"); // Assuming "ProductsData" is the model name
+            oModel.setProperty(oEvent.getSource().getBindingContext("ProductsData").getPath(), oProduct);
 		},
         
             formatter: {
