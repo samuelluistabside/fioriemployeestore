@@ -79,7 +79,7 @@ sap.ui.define([
 			//update the cart model
 			oCartModel.setProperty("/cartEntries", Object.assign({}, oCollectionEntries));
 			oCartModel.refresh(true);
-			MessageToast.show(oBundle.getText("productMsgAddedToCart", [oProductToBeAdded.Name] ));
+			MessageToast.show(oBundle.getText("Product added to cart", [oProductToBeAdded.Name] ));
 		}
 	};
 });

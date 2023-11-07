@@ -101,15 +101,6 @@ sap.ui.define([
 			this._showProduct(oEvent.getParameter("listItem"));
 		},
 
-		/**
-		 * Called when the "save for later" link of a product in the cart is pressed.
-		 * @public
-		 * @param {sap.ui.base.Event} oEvent Event object
-		 */
-		onSaveForLater: function (oEvent) {
-			var oBindingContext = oEvent.getSource().getBindingContext(sCartModelName);
-			this._changeList(sSavedForLaterEntries, sCartEntries, oBindingContext);
-		},
 
 		/**
 		 * Called when the "Add back to basket" link of a product in the saved for later list is pressed.

@@ -5,11 +5,12 @@ sap.ui.define([
     "sap/ui/model/json/JSONModel",
     "sap/ui/core/UIComponent",
     "./BaseController",
+    "../model/cart",
 ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (Controller, Filter, FilterOperator, JSONModel,UIComponent,BaseController) {
+    function (Controller, Filter, FilterOperator, JSONModel,UIComponent,BaseController,cart) {
         "use strict";
 
         return BaseController.extend("employeestore.controller.Main", {
@@ -86,6 +87,21 @@ sap.ui.define([
 
 			this._setLayout(bPressed ? "One" : "Two");
 			this.getRouter().navTo(bPressed ? "Cart" : "Main");
+		},
+
+        /**
+		 * Event handler to determine which button was clicked
+		 * @param {sap.ui.base.Event} oEvent the button press event
+		 */
+		onAddToCart: function (oEvent) {
+            console.log("addtocart")
+			var oResourceBundle = this.getModel("i18n").getResourceBundle();
+            console.log(oResourceBundle)
+			var oProduct = oEvent.getSource().getBindingContext("ProductsData").getObject();
+            console.log(oProduct)
+			var oCartModel = this.getModel("cartProducts");
+            console.log(oCartModel)
+			cart.addToCart(oResourceBundle, oProduct, oCartModel);
 		},
         
             formatter: {

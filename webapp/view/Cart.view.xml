@@ -4,18 +4,18 @@
 	xmlns:mvc="sap.ui.core.mvc">
 	<Page
 		id="page"
-		title="{cfg>/pageTitle}"
+		title="Cart"
 		backgroundDesign="Solid"
 		showNavButton="{appView>/smallScreenMode}"
 		navButtonPress=".onBack"
 		showFooter="true">
-		<Text id="_IDGenText1" text="hola mundo" />
+		
 		<landmarkInfo>
 			<PageAccessibleLandmarkInfo id="_IDGenPageAccessibleLandmarkInfo1"
 				rootRole="Region"
 				rootLabel="{i18n>Cart_rootLabel}"
 				contentRole="Main"
-				contentLabel="{i18n>Cart_contentLabel}"
+				contentLabel="Items in Shopping Cart"
 				footerRole="Region"
 				footerLabel="{i18n>Cart_footerLabel}"
 				headerRole="Region"
@@ -73,13 +73,13 @@
 					}
 				}"
 				mode="{cfg>/listMode}"
-				noDataText="{i18n>cartNoData}"
+				noDataText="No items"
 				selectionChange=".onEntryListSelect">
 				<headerToolbar>
 					<Toolbar id="_IDGenToolbar2">
 						<Title id="_IDGenTitle1"
 							level="H6"
-							text="{i18n>Cart_contentLabel}"
+							text="Items in Shopping Cart"
 							titleStyle="H6"/>
 					</Toolbar>
 				</headerToolbar>
@@ -88,23 +88,18 @@
 						intro="{cartProducts>Quantity} x"
 						type="{cfg>/listItemType}"
 						icon="{
-							path : 'cartProducts>PictureUrl',
-							formatter : '.formatter.pictureUrl'
+							path : 'cartProducts>image'
+							
 						}"
-						title="{cartProducts>Name}"
+						title="{cartProducts>product_name}"
 						number="{
-							path : 'cartProducts>Price',
+							path : 'cartProducts>price',
 							formatter : '.formatter.price'
 						}"
 						numberUnit="EUR"
 						press=".onEntryListPress"
 						iconDensityAware="false">
-						<attributes>
-							<ObjectAttribute id="_IDGenObjectAttribute1"
-								active="true"
-								press=".onSaveForLater"
-								text="{i18n>cartSaveForLaterLinkText}"/>
-						</attributes>
+					
 						<firstStatus>
 							<ObjectStatus id="_IDGenObjectStatus1"
 								text="{
@@ -119,63 +114,7 @@
 					</ObjectListItem>
 				</items>
 			</List>
-			<List
-				delete=".onSaveForLaterDelete"
-				id="saveForLaterList"
-				items="{
-					path : 'cartProducts>/savedForLaterEntries',
-					sorter : {
-						path : 'Name',
-						descending : false
-					}
-				}"
-				mode="{cfg>/listMode}"
-				noDataText="{i18n>cartNoItemsSavedForLater}"
-				selectionChange=".onEntryListSelect">
-				<headerToolbar>
-					<Toolbar id="_IDGenToolbar3">
-						<Title id="_IDGenTitle2"
-							level="H6"
-							text="{i18n>cartItemsSavedForLater}"
-							titleStyle="H6"/>
-					</Toolbar>
-				</headerToolbar>
-				<items>
-					<ObjectListItem id="_IDGenObjectListItem2"
-						intro="{cartProducts>Quantity} x"
-						type="{cfg>/listItemType}"
-						icon="{
-							path : 'cartProducts>PictureUrl',
-							formatter : '.formatter.pictureUrl'
-						}"
-						title="{cartProducts>Name}"
-						number="{
-							path : 'cartProducts>Price',
-							formatter : '.formatter.price'
-						}"
-						numberUnit="EUR"
-						press=".onEntryListPress"
-						iconDensityAware="false">
-						<attributes>
-							<ObjectAttribute id="_IDGenObjectAttribute2"
-								active="true"
-								press=".onAddBackToBasket"
-								text="{i18n>cartAddToCartLinkText}"/>
-						</attributes>
-						<firstStatus>
-							<ObjectStatus id="_IDGenObjectStatus2"
-								text="{
-									path : 'cartProducts>Status',
-									formatter : '.formatter.statusText'
-								}"
-								state="{
-									path : 'cartProducts>Status',
-									formatter : '.formatter.statusState'
-								}"/>
-						</firstStatus>
-					</ObjectListItem>
-				</items>
-			</List>
+			
 		</content>
 	</Page>
 </mvc:View>
