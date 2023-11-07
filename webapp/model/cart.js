@@ -65,13 +65,13 @@ sap.ui.define([
 		_updateCartItem: function (oBundle, oProductToBeAdded, oCartModel) {
 			// find existing entry for product
 			var oCollectionEntries = Object.assign({}, oCartModel.getData()["cartEntries"]);
-			var oCartEntry =  oCollectionEntries[oProductToBeAdded.ProductId];
+			var oCartEntry =  oCollectionEntries[oProductToBeAdded.product_name];
 
 			if (oCartEntry === undefined) {
 				// create new entry
 				oCartEntry = Object.assign({}, oProductToBeAdded);
 				oCartEntry.Quantity = 1;
-				oCollectionEntries[oProductToBeAdded.ProductId] = oCartEntry;
+				oCollectionEntries[oProductToBeAdded.product_name] = oCartEntry;
 			} else {
 				// update existing entry
 				oCartEntry.Quantity += 1;

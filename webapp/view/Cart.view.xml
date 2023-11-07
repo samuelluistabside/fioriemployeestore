@@ -40,7 +40,7 @@
 					text="{
 						path : 'cartProducts>/cartEntries',
 						formatter : '.formatter.totalPrice'
-					} EUR"
+					} USD"
 					class="sapUiTinyMarginBegin"/>
 				<ToolbarSpacer id="_IDGenToolbarSpacer1"/>
 				<Button
@@ -96,7 +96,7 @@
 							path : 'cartProducts>price',
 							formatter : '.formatter.price'
 						}"
-						numberUnit="EUR"
+						numberUnit="USD"
 						press=".onEntryListPress"
 						iconDensityAware="false">
 					

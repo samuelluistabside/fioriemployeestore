@@ -94,9 +94,9 @@ sap.ui.define([
 		 * @param {sap.ui.base.Event} oEvent the button press event
 		 */
 		onAddToCart: function (oEvent) {
-            console.log("addtocart")
+            
 			var oResourceBundle = this.getModel("i18n").getResourceBundle();
-            console.log(oResourceBundle)
+            
 			var oProduct = oEvent.getSource().getBindingContext("ProductsData").getObject();
             console.log(oProduct)
 			var oCartModel = this.getModel("cartProducts");

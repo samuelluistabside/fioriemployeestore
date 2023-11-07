@@ -13,7 +13,7 @@
     {
         "product_name": "Whisky",
         "price": 30.00,
-        "number_available": 15,
+        "number_available": 0,
         "image": "../img/bottle_of_whiskey_on_a_transparent_background__by_prussiaart_dcqbi1q-pre.png",
         "credit_available": true
     },
