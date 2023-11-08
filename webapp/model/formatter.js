@@ -37,9 +37,9 @@ sap.ui.define([
 
 				try {
 
-					Object.keys(oCartEntries).forEach(function (sProductId) {
-						var oProduct = oCartEntries[sProductId];
-						fTotalPrice += parseFloat(oProduct.Price) * oProduct.Quantity;
+					Object.keys(oCartEntries).forEach(function (product_name) {
+						var oProduct = oCartEntries[product_name];
+						fTotalPrice += parseFloat(oProduct.price) * oProduct.Quantity;
 					});
 					
 				} catch (error) {

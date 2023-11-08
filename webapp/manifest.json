@@ -73,8 +73,14 @@
 				"viewType": "XML",
 				"controlId": "layout",
         "async": true,
+        "controlAggregation": "midColumnPages",
         "viewPath": "employeestore.view",
-        "clearControlAggregation": false
+        "clearControlAggregation": false,
+        "bypassed": {
+					"target": [
+						"Main"
+					]
+				}
       },
       "routes": [
         {

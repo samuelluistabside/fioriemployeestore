@@ -21,7 +21,7 @@ sap.ui.define([
 			    this.getView().setModel(ProductsData,"ProductsData");
 
                 var UserData = new sap.ui.model.json.JSONModel();
-
+                
                 var oModel = this.getView().getModel()
                 
                 try {
@@ -86,7 +86,7 @@ sap.ui.define([
 			var bPressed = oEvent.getParameter("pressed");
 
 			this._setLayout(bPressed ? "One" : "Two");
-			this.getRouter().navTo(bPressed ? "Cart" : "Main");
+			this.getRouter().navTo(bPressed ? "Main" : "Cart");
 		},
 
         /**
@@ -98,11 +98,14 @@ sap.ui.define([
 			var oResourceBundle = this.getModel("i18n").getResourceBundle();
             
 			var oProduct = oEvent.getSource().getBindingContext("ProductsData").getObject();
-            oProduct.number_available = oProduct.number_available - 1;
+            
             console.log(oProduct)
 			var oCartModel = this.getModel("cartProducts");
             console.log(oCartModel)
 			cart.addToCart(oResourceBundle, oProduct, oCartModel);
+
+            //que pasa si lo dejo en el carrito y nunca compro>? que no me deje agregar mas al carrito deberia ser solo local, hasta q se compre
+            oProduct.number_available = oProduct.number_available - 1;
             var oModel = this.getView().getModel("ProductsData"); // Assuming "ProductsData" is the model name
             oModel.setProperty(oEvent.getSource().getBindingContext("ProductsData").getPath(), oProduct);
 		},

@@ -30,7 +30,7 @@ sap.ui.define([
 			//this._oRouter.getRoute("comparisonCart").attachPatternMatched(this._routePatternMatched, this);
 			// set initial ui configuration model
 			var oCfgModel = new JSONModel({});
-			console.log("cart view on the side")
+			
 			this.getView().setModel(oCfgModel, "cfg");
 			this._toggleCfgModel();
 
@@ -178,8 +178,8 @@ sap.ui.define([
 		_deleteProduct: function (sCollection, oEvent) {
 			var oBindingContext = oEvent.getParameter("listItem").getBindingContext(sCartModelName),
 				oBundle = this.getResourceBundle(),
-				sEntryId = oBindingContext.getProperty("ProductId"),
-				sEntryName = oBindingContext.getProperty("Name");
+				sEntryId = oBindingContext.getProperty("product_name"),
+				sEntryName = oBindingContext.getProperty("product_name");
 
 			// show confirmation dialog
 			MessageBox.show(oBundle.getText("cartDeleteDialogMsg"), {

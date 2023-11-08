@@ -17,6 +17,7 @@ sap.ui.define(
           fnSetAppNotBusy,
 				  iOriginalBusyDelay = this.getView().getBusyIndicatorDelay();
 
+          
           oViewModel = new sap.ui.model.json.JSONModel({
             busy : false,
             delay : 0,
