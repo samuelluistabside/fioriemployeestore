@@ -193,56 +193,57 @@ sap.ui.define([
 		goToPaymentStep: function () {
 			var selectedKey = this.getModel().getProperty("/SelectedPayment");
 			var oElement = this.byId("paymentTypeStep");
+
+			var oCartModel = this.getModel("cartProducts")
+			var oCartEntries = oCartModel.getProperty("/cartEntries");
+			var allcredit = true
+			var sumtotal = 0
+
+
+			for(var key in oCartEntries) 
+			{
+				sumtotal = sumtotal + (oCartEntries[key].price * oCartEntries[key].Quantity)
+				if (oCartEntries[key].credit_available === false) {
+					allcredit = false
+					
+					} 
+
+				}
+
+			var creditsallow = true
+
+			var UserData = this.getView().getModel("UserData")
+
+			try {
+				var oUser = sap.ushell.Container.getService("UserInfo").getUser().getFullName();
+				//console.log("current user: ","'",oUser.trim(),"'")
+		
+				} catch (error) {
+		
+				var oUser = "Default User";
+				//console.log("current user: ","'",oUser.trim(),"'")
+				
+
+				}
+
+			var aUsers = UserData.getProperty("/User_Data");
+			for (var i = 0; i < aUsers.length; i++) {
+				if (aUsers[i].name === oUser) {
+					var fCredits = aUsers[i].credits;
+					break;
+				}
+			}
+
+			if(sumtotal > fCredits ){
+				creditsallow = false
+				console.log("la cantidad de creditos no es suficiente")
+			}
 			switch (selectedKey) {
 				case "Pay with Credits":
-					console.log("pay with credit")
+					
 					//oElement.setNextStep(this.byId("bankAccountStep"));
 					//if credits allows and if all products are credits avaleibale
-					var oCartModel = this.getModel("cartProducts")
-					var oCartEntries = oCartModel.getProperty("/cartEntries");
-					var allcredit = true
-					var sumtotal = 0
-					
-					console.log(oCartEntries)
-					for(var key in oCartEntries) 
-					{
-						sumtotal = sumtotal + (oCartEntries[key].price * oCartEntries[key].Quantity)
-						if (oCartEntries[key].credit_available === false) {
-							allcredit = false
-							console.log("no todos los productos son de creditos")
-						  } 
 
-					 }
-
-					var creditsallow = true
-
-					var UserData = this.getView().getModel("UserData")
-
-					try {
-						var oUser = sap.ushell.Container.getService("UserInfo").getUser().getFullName();
-						//console.log("current user: ","'",oUser.trim(),"'")
-			  
-					  } catch (error) {
-			  
-						var oUser = "Default User";
-						//console.log("current user: ","'",oUser.trim(),"'")
-						
-		
-					  }
-
-					
-					var aUsers = UserData.getProperty("/User_Data");
-					for (var i = 0; i < aUsers.length; i++) {
-						if (aUsers[i].name === oUser) {
-							var fCredits = aUsers[i].credits;
-							break;
-						}
-					}
-
-					if(sumtotal > fCredits ){
-						creditsallow = false
-						console.log("la cantidad de creditos no es suficiente")
-					}
 
 					if( !creditsallow || !allcredit) {
 
@@ -273,7 +274,26 @@ sap.ui.define([
 					break;
 				case "Credit Card":
 				default:
+					
+				if( !creditsallow || !allcredit) {
+
+					if( !creditsallow & allcredit){
+
+						MessageToast.show("You don't have enough credits to order all the products in the cart");
+
+
+					}else if (creditsallow & !allcredit){
+
+						MessageToast.show("There are products in the cart that are not credit-redeemable");
+
+					}else if (!creditsallow & !allcredit){
+
+						MessageToast.show("There are products in the cart that are not credit-redeemable");
+					}
+
+				}else{
 					oElement.setNextStep(this.byId("bankAccountStep"));
+				}
 					break;
 			}
 		},
