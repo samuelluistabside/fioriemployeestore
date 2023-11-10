@@ -44,7 +44,7 @@
 				<VBox id="_IDGenVBox2" class="vboxrigth">
 				<ObjectNumber id="_IDGenObjectNumber1"
                         number="{
-                            parts:[{path:'ProductsData>price'},{path:'CurrencyCode'}],
+                            parts:[{path:'ProductsData>price'}],
                             type: 'sap.ui.model.type.Currency',
                             formatOptions: {showMeasure: false}
                         }"

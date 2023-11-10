@@ -91,6 +91,11 @@
           ]
         },
         {
+					"pattern": "checkout",
+					"name": "checkout",
+					"target": "checkout"
+				},
+        {
 					"pattern": "Cart",
 					"name": "Cart",
 					"target": ["Cart"]
@@ -104,6 +109,15 @@
           "viewId": "Main",
           "viewName": "Main"
         },
+        "checkout": {
+					"name": "Checkout",
+					"controlAggregation": "beginColumnPages",
+					"level": 1,
+					"title": "{i18n>checkoutTitle}",
+					"id": "Checkout",
+          "viewName" : "Checkout",
+          "viewType": "XML"
+				},
         "Cart": {
 					"name": "Cart",
           "viewId": "Cart",

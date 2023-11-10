@@ -62,7 +62,9 @@ sap.ui.define([
 			var mStatusText = {
 				"A": oBundle.getText("statusA"),
 				"O": oBundle.getText("statusO"),
-				"D": oBundle.getText("statusD")
+				"D": oBundle.getText("statusD"),
+				"true" : "credit product",
+				"false": "cash product"
 			};
 
 			return mStatusText[sStatus] || sStatus;

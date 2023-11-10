@@ -56,7 +56,7 @@ sap.ui.define([
                         }
                     }
 
-                    TitleCredits.setText("Credits: " + fCredits )
+                    TitleCredits.setText("Credits: " + fCredits + " USD" )
 
 
 
@@ -86,7 +86,7 @@ sap.ui.define([
 			var bPressed = oEvent.getParameter("pressed");
 
 			this._setLayout(bPressed ? "One" : "Two");
-			this.getRouter().navTo(bPressed ? "Main" : "Cart");
+			this.getRouter().navTo(bPressed ? "RouteMain" : "Cart");
 		},
 
         /**
@@ -99,9 +99,9 @@ sap.ui.define([
             
 			var oProduct = oEvent.getSource().getBindingContext("ProductsData").getObject();
             
-            console.log(oProduct)
+
 			var oCartModel = this.getModel("cartProducts");
-            console.log(oCartModel)
+ 
 			cart.addToCart(oResourceBundle, oProduct, oCartModel);
 
             //que pasa si lo dejo en el carrito y nunca compro>? que no me deje agregar mas al carrito deberia ser solo local, hasta q se compre

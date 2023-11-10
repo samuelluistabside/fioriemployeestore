@@ -212,6 +212,7 @@ sap.ui.define([
 		 * @public
 		 */
 		onProceedButtonPress: function () {
+			console.log("proceed")
 			this.getRouter().navTo("checkout");
 		}
 	});

@@ -103,7 +103,7 @@
 						<firstStatus>
 							<ObjectStatus id="_IDGenObjectStatus1"
 								text="{
-									path : 'cartProducts>Status',
+									path : 'cartProducts>credit_available',
 									formatter : '.formatter.statusText'
 								}"
 								state="{

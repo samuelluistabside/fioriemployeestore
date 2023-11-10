@@ -12,9 +12,16 @@ sap.ui.define(
         onInit: function() {
 
           
+          //var UserData = new sap.ui.model.json.JSONModel();
+
+          
+          //UserData.loadData("../model/UserData.json"); 
+        
+          
 
           var oViewModel,
           fnSetAppNotBusy,
+          fCredits,
 				  iOriginalBusyDelay = this.getView().getBusyIndicatorDelay();
 
           
@@ -34,6 +41,14 @@ sap.ui.define(
           savedForLaterEntries: {}
         });
         this.setModel(oCartModel, "cartProducts");
+       /*
+        UserData.attachRequestCompleted(function() {
+          this.setModel(UserData,"UserData");
+
+        });*/
+        
+        
+
 
         this.setModel(oViewModel, "appView");
         //this._setLayout("One");
