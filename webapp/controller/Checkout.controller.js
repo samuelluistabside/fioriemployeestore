@@ -10,7 +10,7 @@ sap.ui.define([
 	"sap/ui/Device",
 	"sap/ui/core/Core",
 	"sap/ui/model/json/JSONModel",
-	"sap/m/MessageToast",
+	"sap/m/MessageToast"
 ], function (
 	BaseController,
 	cart,
@@ -193,12 +193,20 @@ sap.ui.define([
 		goToPaymentStep: function () {
 			var selectedKey = this.getModel().getProperty("/SelectedPayment");
 			var oElement = this.byId("paymentTypeStep");
+			
+
+			var oWizard = this.byId("shoppingCartWizard");
+			var oFirstStep = oWizard.getSteps()[0];
+			
+
 
 			var oCartModel = this.getModel("cartProducts")
 			var oCartEntries = oCartModel.getProperty("/cartEntries");
 			var allcredit = true
+			var allcash = true
 			var sumtotal = 0
 
+			var validationtext = this.getView().byId("validationtext")
 
 			for(var key in oCartEntries) 
 			{
@@ -206,7 +214,9 @@ sap.ui.define([
 				if (oCartEntries[key].credit_available === false) {
 					allcredit = false
 					
-					} 
+					} else{
+						allcash = false
+					}
 
 				}
 
@@ -249,18 +259,28 @@ sap.ui.define([
 
 						if( !creditsallow & allcredit){
 
+							//validationtext.setText("You dont have enough credits to order all the products in the cart")
+
 							MessageToast.show("You dont have enough credits to order all the products in the cart");
 
 
 						}else if (creditsallow & !allcredit){
 
-							MessageToast.show("There are products in the cart that are not credit-redemable");
+							//validationtext.setText("There are products in the cart that are not credit-redeemable")
+							MessageToast.show("There are products in the cart that are not credit-redeemable");
 
 						}else if (!creditsallow & !allcredit){
 
-							MessageToast.show("There are products in the cart that are not credit-redemable");
+							//validationtext.setText("There are products in the cart that are not credit-redeemable")
+							MessageToast.show("There are products in the cart that are not credit-redeemable");
 						}
 
+						//validationtext.setText("")
+						//oElement.setNextStep(this.byId("paymentTypeStep"));
+						oWizard.discardProgress(oFirstStep);
+						// scroll to top
+						oWizard.goToStep(oFirstStep);
+						
 					}else{
 						oElement.setNextStep(this.byId("bankAccountStep"));
 					}
@@ -269,27 +289,46 @@ sap.ui.define([
 					
 				
 					break;
-				case "Pay Cash":
-					oElement.setNextStep(this.byId("cashOnDeliveryStep"));
+				case " Bank Transfer":
+					if ( !allcash){
+
+						//validationtext.setText("There are products in the cart that are not cash-redeemable")
+						MessageToast.show("There are products in the cart that are not cash-redeemable");
+						//oElement.setNextStep(this.byId("paymentTypeStep"));
+						oWizard.discardProgress(oFirstStep);
+						// scroll to top
+						oWizard.goToStep(oFirstStep);
+					}else{
+						//validationtext.setText("")
+						oElement.setNextStep(this.byId("bankAccountStep"));
+					}
+					
 					break;
 				case "Credit Card":
 				default:
 					
-				if( !creditsallow || !allcredit) {
+				if(  !creditsallow || !allcredit) {
 
 					if( !creditsallow & allcredit){
 
+                        //validationtext.setText("You don't have enough credits to order all the products in the cart")
 						MessageToast.show("You don't have enough credits to order all the products in the cart");
 
 
 					}else if (creditsallow & !allcredit){
 
+						//validationtext.setText("There are products in the cart that are not credit-redeemable")
 						MessageToast.show("There are products in the cart that are not credit-redeemable");
 
 					}else if (!creditsallow & !allcredit){
 
+						//validationtext.setText("There are products in the cart that are not credit-redeemable")
 						MessageToast.show("There are products in the cart that are not credit-redeemable");
 					}
+					//oElement.setNextStep(this.byId("paymentTypeStep"));
+					oWizard.discardProgress(oFirstStep);
+					// scroll to top
+					oWizard.goToStep(oFirstStep);
 
 				}else{
 					oElement.setNextStep(this.byId("bankAccountStep"));

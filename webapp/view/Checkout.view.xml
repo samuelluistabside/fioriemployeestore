@@ -81,6 +81,7 @@
 										</ObjectListItem>
 									</items>
 								</List>
+								
 								<Bar id="_IDGenBar1">
 									<contentRight>
 										<Text id="_IDGenText1"
@@ -116,10 +117,11 @@
 												text="{i18n>checkoutPaymentCreditCard}"/>
 											<SegmentedButtonItem
 												id="payViaBank"
-												key="Pay Cash"
+												key=" Bank Transfer"
 												text="{i18n>checkoutPaymentBankTransfer}"/>
 										</items>
 									</SegmentedButton>
+									<Text id="validationtext" ></Text>
 								</HBox>
 							</WizardStep>
 							<WizardStep
