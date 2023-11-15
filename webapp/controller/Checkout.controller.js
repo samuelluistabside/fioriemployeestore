@@ -38,9 +38,8 @@ sap.ui.define([
 
 		onInit: function () {
 
-			//codigo duplicado, falta arreglarlo
-			var UserData = new sap.ui.model.json.JSONModel();
-			
+			var UserData = this.getOwnerComponent().getModel("UserData")
+			console.log(UserData)
 
 			var TitleCredits = this.getView().byId("_IDGenTitle1")
 
@@ -56,32 +55,29 @@ sap.ui.define([
 
 			  }
             
+			  console.log(UserData.getProperty("/User_Data"))
 			  
-			  UserData.attachRequestFailed(function(oEvent) {
-				var oParams = oEvent.getParameters();
-				var sMessage = oParams.response.statusText;
-				console.log("Error: " + sMessage);
-			});
-			UserData.loadData("../model/UserData.json");
 
-			UserData.attachRequestCompleted(function() {
+			  
 				
 
-				var aUsers = UserData.getProperty("/User_Data");
-				for (var i = 0; i < aUsers.length; i++) {
-					if (aUsers[i].name === oUser) {
-						var fCredits = aUsers[i].credits;
-						break;
-					}
+			var aUsers = UserData.getProperty("/User_Data");
+			for (var i = 0; i < aUsers.length; i++) {
+				if (aUsers[i].name === oUser) {
+					console.log(aUsers[i].name)
+					var fCredits = aUsers[i].credits;
+					break;
 				}
+			}
 
-				TitleCredits.setText("Credits: " + fCredits + " USD" )
+		
+			TitleCredits.setText("Credits: " + fCredits + " USD" )
 
 
 
-			});
+			
 
-			this.getView().setModel(UserData,"UserData")
+			
 		
 
 			var oModel = new JSONModel(
@@ -198,7 +194,7 @@ sap.ui.define([
 			var oWizard = this.byId("shoppingCartWizard");
 			var oFirstStep = oWizard.getSteps()[0];
 			
-
+			var TitleCredits = this.getView().byId("_IDGenTitle1")
 
 			var oCartModel = this.getModel("cartProducts")
 			var oCartEntries = oCartModel.getProperty("/cartEntries");
@@ -222,7 +218,7 @@ sap.ui.define([
 
 			var creditsallow = true
 
-			var UserData = this.getView().getModel("UserData")
+			var UserData = this.getOwnerComponent().getModel("UserData")
 
 			try {
 				var oUser = sap.ushell.Container.getService("UserInfo").getUser().getFullName();
@@ -236,14 +232,19 @@ sap.ui.define([
 
 				}
 
+			var userindex = 0
+
+		
+
 			var aUsers = UserData.getProperty("/User_Data");
 			for (var i = 0; i < aUsers.length; i++) {
 				if (aUsers[i].name === oUser) {
+					userindex = i
 					var fCredits = aUsers[i].credits;
 					break;
 				}
 			}
-
+		
 			if(sumtotal > fCredits ){
 				creditsallow = false
 				console.log("la cantidad de creditos no es suficiente")
@@ -282,6 +283,9 @@ sap.ui.define([
 						oWizard.goToStep(oFirstStep);
 						
 					}else{
+						
+						aUsers[userindex].credits = aUsers[userindex].credits - sumtotal;  
+						TitleCredits.setText("Credits: " + aUsers[userindex].credits + " USD" )
 						oElement.setNextStep(this.byId("bankAccountStep"));
 					}
 					
@@ -331,6 +335,9 @@ sap.ui.define([
 					oWizard.goToStep(oFirstStep);
 
 				}else{
+
+					aUsers[userindex].credits = aUsers[userindex].credits - sumtotal; 
+					TitleCredits.setText("Credits: " + aUsers[userindex].credits + " USD" )
 					oElement.setNextStep(this.byId("bankAccountStep"));
 				}
 					break;
@@ -513,7 +520,7 @@ sap.ui.define([
 		 * navigates to "home" for further shopping
 		 */
 		onReturnToShopButtonPress: function () {
-            console.log("return")
+         
 			this._setLayout("One");
 			this.getRouter().navTo("RouteMain");
 		},

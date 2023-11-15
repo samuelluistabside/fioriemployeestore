@@ -86,7 +86,13 @@ sap.ui.define([
 		 */
 		pictureUrl: function (sUrl) {
 			if (sUrl){
-				return  sap.ui.require.toUrl(sUrl);
+
+				try {
+					return  sap.ui.require.toUrl(sUrl);
+				} catch (error) {
+					return undefined
+				}
+				
 			} else {
 				return undefined;
 			}

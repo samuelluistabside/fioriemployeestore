@@ -16,14 +16,50 @@ sap.ui.define([
         return BaseController.extend("employeestore.controller.Main", {
             onInit: function () {
 
+              
                 
                 var ProductsData = new sap.ui.model.json.JSONModel("../model/Products.json");
 			    this.getView().setModel(ProductsData,"ProductsData");
 
-                var UserData = new sap.ui.model.json.JSONModel();
+               
                 
                 var oModel = this.getView().getModel()
                 
+              
+               
+                var oModel2 = new sap.ui.model.json.JSONModel();
+
+                /*
+                var UserData = new sap.ui.model.json.JSONModel();
+                UserData.attachRequestFailed(function(oEvent) {
+                    var oParams = oEvent.getParameters();
+                    var sMessage = oParams.response.statusText;
+                    console.log("Error: " + sMessage);
+                });
+                UserData.loadData("../model/UserData.json");
+
+                */
+           
+
+
+               
+
+                
+
+                 //TitleCredits.setText("Credits: " + fCredits + " USD" )
+                // Display the credit.
+              
+
+               
+                this._oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+                this._oRouter.attachRouteMatched(this.handleRouteMatched, this);
+
+
+            },
+
+            handleRouteMatched : function (evt) {
+                //Check whether is the detail page is matched.
+
                 try {
                     var oUser = sap.ushell.Container.getService("UserInfo").getUser().getFullName();
                     //console.log("current user: ","'",oUser.trim(),"'")
@@ -36,46 +72,25 @@ sap.ui.define([
                   }
 
                 var TitleCredits = this.getView().byId("_IDGenTitle1")
-               
-                var oModel2 = new sap.ui.model.json.JSONModel();
-                UserData.attachRequestFailed(function(oEvent) {
-                    var oParams = oEvent.getParameters();
-                    var sMessage = oParams.response.statusText;
-                    console.log("Error: " + sMessage);
-                });
-                UserData.loadData("../model/UserData.json");
-
-                UserData.attachRequestCompleted(function() {
+                    
+                var UserData = this.getOwnerComponent().getModel("UserData")
+           
+              
                     
 
-                    var aUsers = UserData.getProperty("/User_Data");
-                    for (var i = 0; i < aUsers.length; i++) {
-                        if (aUsers[i].name === oUser) {
-                            var fCredits = aUsers[i].credits;
-                            break;
-                        }
+                var aUsers = UserData.getProperty("/User_Data");
+                for (var i = 0; i < aUsers.length; i++) {
+                    if (aUsers[i].name === oUser) {
+                        var fCredits = aUsers[i].credits;
+                        break;
                     }
+                }
 
-                    TitleCredits.setText("Credits: " + fCredits + " USD" )
+                TitleCredits.setText("Credits: " + fCredits + " USD" )
 
-
-
-                });
-
-
-                // Display the credit.
-              
-
-                // Create a filter.
-                var filter = sap.ui.model.Filter("name", sap.ui.model.FilterOperator.EQ, oUser)
-                
-
-
+                //You code here to run every time when your detail page is called.
             },
-
-            
-            
-  
+        
 
 
             /**
@@ -93,6 +108,8 @@ sap.ui.define([
 		 * Event handler to determine which button was clicked
 		 * @param {sap.ui.base.Event} oEvent the button press event
 		 */
+        
+        
 		onAddToCart: function (oEvent) {
             
 			var oResourceBundle = this.getModel("i18n").getResourceBundle();
@@ -109,6 +126,9 @@ sap.ui.define([
             var oModel = this.getView().getModel("ProductsData"); // Assuming "ProductsData" is the model name
             oModel.setProperty(oEvent.getSource().getBindingContext("ProductsData").getPath(), oProduct);
 		},
+            
+       
+
         
             formatter: {
                 formatAvailability: function(number_available) {

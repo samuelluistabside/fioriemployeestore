@@ -11,6 +11,8 @@ sap.ui.define(
       return BaseController.extend("employeestore.controller.App", {
         onInit: function() {
 
+
+          
           
           //var UserData = new sap.ui.model.json.JSONModel();
 
@@ -39,6 +41,7 @@ sap.ui.define(
         var oCartModel = new LocalStorageModel("SHOPPING_CART", {
           cartEntries: {},
           savedForLaterEntries: {}
+          //userdatatest:{}
         });
         this.setModel(oCartModel, "cartProducts");
        /*

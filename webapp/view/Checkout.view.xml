@@ -48,7 +48,7 @@
 									items="{
 										path : 'cartProducts>/cartEntries',
 										sorter : {
-											path : 'Name',
+											path : 'product_name',
 											descending : false
 										}
 								}">
@@ -373,29 +373,14 @@
 						<WizardStep
 							id="invoiceStep"
 							title="{i18n>checkoutInvoiceAddressTitle}"
-							subsequentSteps="deliveryAddressStep, deliveryTypeStep"
-							activate=".onCheckStepActivation"
-							complete="invoiceAddressComplete"
 							icon="sap-icon://sales-quote"
-							validated="false">
+							>
 							<form:SimpleForm id="_IDGenSimpleForm3"
 								layout="ResponsiveGridLayout"
 								editable="true">
-								<Label id="_IDGenLabel15" text="{i18n>checkoutInvoiceAddressDifferentDeliveryAddress}">
-									<layoutData>
-										<layout:GridData id="_IDGenGridData17" span="XL4 L4 M4 S12"/>
-									</layoutData>
-								</Label>
-								<CheckBox
-									id="differentDeliveryAddress"
-									selected="{/DifferentDeliveryAddress}"
-									select="setDifferentDeliveryAddress">
-									<layoutData>
-										<layout:GridData id="_IDGenGridData18" span="XL8 L8 M8 S12"/>
-									</layoutData>
-								</CheckBox>
+								
 								<Label id="_IDGenLabel16"
-									text="{i18n>checkoutInvoiceAddress}"
+									text="Reference Number"
 									required="true"
 									labelFor="invoiceAddressAddress">
 									<layoutData>
@@ -404,7 +389,7 @@
 								</Label>
 								<Input
 									id="invoiceAddressAddress"
-									placeholder="{i18n>addressText}"
+									placeholder="Enter the reference number of the deposit"
 									value="{
 										path: '/InvoiceAddress/Address',
 										type: 'sap.ui.model.type.String',
@@ -413,98 +398,13 @@
 											search: '^[a-zA-Z-]+\\.?\\s?[0-9a-zA-Z\\s]*$'
 										}
 									}"
-									change="checkInvoiceStep">
+									>
 									<layoutData>
 										<layout:GridData id="_IDGenGridData20" span="XL8 L8 M8 S12"/>
 									</layoutData>
 								</Input>
-								<Label id="_IDGenLabel17"
-									text="{i18n>checkoutInvoiceAddressCity}"
-									required="true"
-									labelFor="invoiceAddressCity">
-									<layoutData>
-										<layout:GridData id="_IDGenGridData21" span="XL4 L4 M4 S12"/>
-									</layoutData>
-								</Label>
-								<Input
-									id="invoiceAddressCity"
-									placeholder="{i18n>cityText}"
-									value="{
-										path: '/InvoiceAddress/City',
-										type: 'sap.ui.model.type.String',
-										constraints: {
-											minLength: 3,
-											search: '^[a-zA-Z\\s]+$'
-										}
-									}"
-									change="checkInvoiceStep">
-									<layoutData>
-										<layout:GridData id="_IDGenGridData22" span="XL8 L8 M8 S12"/>
-									</layoutData>
-								</Input>
-								<Label id="_IDGenLabel18"
-									text="{i18n>checkoutInvoiceAddressZip}"
-									required="true"
-									labelFor="invoiceAddressZip">
-									<layoutData>
-										<layout:GridData id="_IDGenGridData23" span="XL4 L4 M4 S12"/>
-									</layoutData>
-								</Label>
-								<Input
-									id="invoiceAddressZip"
-									placeholder="{i18n>zipCodeText}"
-									value="{
-										path: '/InvoiceAddress/ZipCode',
-										type: 'sap.ui.model.type.String',
-										constraints: {
-											minLength: 3,
-											search: '^[0-9]+$'
-										}
-									}"
-									change="checkInvoiceStep">
-									<layoutData>
-										<layout:GridData id="_IDGenGridData24" span="XL8 L8 M8 S12"/>
-									</layoutData>
-								</Input>
-								<Label id="_IDGenLabel19"
-									text="{i18n>checkoutInvoiceAddressCountry}"
-									required="true"
-									labelFor="invoiceAddressCountry">
-									<layoutData>
-										<layout:GridData id="_IDGenGridData25" span="XL4 L4 M4 S12"/>
-									</layoutData>
-								</Label>
-								<Input
-									id="invoiceAddressCountry"
-									placeholder="{i18n>countryText}"
-									value="{
-										path: '/InvoiceAddress/Country',
-										type: 'sap.ui.model.type.String',
-										constraints: {
-											minLength: 2,
-											search: '^[a-zA-Z]+$'
-										}
-									}"
-									change="checkInvoiceStep">
-									<layoutData>
-										<layout:GridData id="_IDGenGridData26" span="XL8 L8 M8 S12"/>
-									</layoutData>
-								</Input>
-								<Label id="_IDGenLabel20"
-									text="{i18n>checkoutInvoiceAddressNote}"
-									required="false">
-									<layoutData>
-										<layout:GridData id="_IDGenGridData27" span="XL4 L4 M4 S12"/>
-									</layoutData>
-								</Label>
-								<TextArea id="_IDGenTextArea1"
-									rows="8"
-									placeholder="{i18n>noteText}"
-									value="{/InvoiceAddress/Note}">
-									<layoutData>
-										<layout:GridData id="_IDGenGridData28" span="XL8 L8 M8 S12"/>
-									</layoutData>
-								</TextArea>
+								
+							
 							</form:SimpleForm>
 						</WizardStep>
 						<WizardStep
@@ -718,15 +618,15 @@
 									<ObjectListItem id="_IDGenObjectListItem2"
 										intro="{cartProducts>Quantity} x"
 										icon="{
-											path : 'cartProducts>PictureUrl',
+											path : 'cartProducts>image',
 											formatter : '.formatter.pictureUrl'
 										}"
-										title="{cartProducts>Name}"
+										title="{cartProducts>product_name}"
 										number="{
-											path : 'cartProducts>Price',
+											path : 'cartProducts>price',
 											formatter : '.formatter.price'
 										}"
-										numberUnit="EUR"
+										numberUnit="USD"
 										press=".onEntryListPress"
 										iconDensityAware="false">
 										<firstStatus>
@@ -886,141 +786,8 @@
 							<Text id="_IDGenText15" text="{/CashOnDelivery/Email}"/>
 						</form:content>
 					</form:SimpleForm>
-					<form:SimpleForm id="_IDGenSimpleForm10"
-							title=""
-							editable="false"
-							layout="ResponsiveGridLayout"
-							ariaLabelledBy="invoiceAddressTitle">
-						<form:toolbar>
-							<Toolbar id="toolbarInvoice">
-								<Title
-									id="invoiceAddressTitle"
-									text="{i18n>checkoutSummaryTitle4}"
-									level="H2"
-									titleStyle="H4"/>
-								<ToolbarSpacer id="_IDGenToolbarSpacer6"/>
-								<Button
-									id="backToInvoiceAddress"
-									icon="sap-icon://edit"
-									tooltip="{i18n>backToWizard}"
-									type="Emphasized"
-									press="._navBackToStep">
-									<customData>
-										<core:CustomData key="navBackTo" value="invoiceStep"/>
-									</customData>
-								</Button>
-							</Toolbar>
-						</form:toolbar>
-						<form:content>
-							<Label id="_IDGenLabel38" text="{i18n>checkoutInvoiceAddress}"/>
-							<Text id="_IDGenText16" text="{/InvoiceAddress/Address}"/>
-							<Label id="_IDGenLabel39" text="{i18n>checkoutInvoiceAddressCity}"/>
-							<Text id="_IDGenText17" text="{/InvoiceAddress/City}"/>
-							<Label id="_IDGenLabel40" text="{i18n>checkoutInvoiceAddressZip}"/>
-							<Text id="_IDGenText18" text="{/InvoiceAddress/ZipCode}"/>
-							<Label id="_IDGenLabel41" text="{i18n>checkoutInvoiceAddressCountry}"/>
-							<Text id="_IDGenText19" text="{/InvoiceAddress/Country}"/>
-							<Label id="_IDGenLabel42" text="{i18n>checkoutInvoiceAddressNote}"/>
-							<Text id="_IDGenText20" text="{/InvoiceAddress/Note}"/>
-						</form:content>
-					</form:SimpleForm>
-					<form:SimpleForm id="_IDGenSimpleForm11"
-							title=""
-							editable="false"
-							layout="ResponsiveGridLayout"
-							ariaLabelledBy="deliveryTypeTitle">
-						<form:toolbar>
-							<Toolbar id="toolbarShippping">
-								<Title
-									id="deliveryTypeTitle"
-									text="{i18n>checkoutSummaryTitle5}"
-									level="H2"
-									titleStyle="H4"/>
-								<ToolbarSpacer id="_IDGenToolbarSpacer7"/>
-								<Button
-									id="backToDeliveryType"
-									icon="sap-icon://edit"
-									tooltip="{i18n>backToWizard}"
-									type="Emphasized"
-									press="._navBackToStep">
-									<customData>
-										<core:CustomData key="navBackTo" value="deliveryTypeStep"/>
-									</customData>
-								</Button>
-							</Toolbar>
-						</form:toolbar>
-						<form:content>
-							<Label id="_IDGenLabel43" text="{i18n>checkoutSummaryDeliveryHeader}"/>
-							<Text id="selectedDeliveryMethod" text="{/SelectedDeliveryMethod}"/>
-						</form:content>
-					</form:SimpleForm>
-					<form:SimpleForm id="_IDGenSimpleForm12"
-						editable="false"
-						layout="ResponsiveGridLayout"
-						visible="{= ${/DifferentDeliveryAddress}}"
-						ariaLabelledBy="shippingAddressTitle1">
-						<form:toolbar>
-							<Toolbar id="toolbar5ShippingAddress">
-								<Title
-									id="shippingAddressTitle1"
-									text="{i18n>checkoutDeliveryAddressTitle}"
-									level="H2"
-									titleStyle="H4"/>
-								<ToolbarSpacer id="_IDGenToolbarSpacer8"/>
-								<Button
-									id="backToDeliveryAddress"
-									icon="sap-icon://edit"
-									tooltip="{i18n>backToWizard}"
-									type="Emphasized"
-									press="._navBackToStep">
-									<customData>
-										<core:CustomData key="navBackTo" value="deliveryAddressStep"/>
-									</customData>
-								</Button>
-							</Toolbar>
-						</form:toolbar>
-						<form:content>
-							<Label id="_IDGenLabel44" text="{i18n>checkoutDeliveryAddressAddress}"/>
-							<Text id="_IDGenText21" text="{/DeliveryAddress/Address}"/>
-							<Label id="_IDGenLabel45" text="{i18n>checkoutDeliveryAddressCity}"/>
-							<Text id="_IDGenText22" text="{/DeliveryAddress/City}"/>
-							<Label id="_IDGenLabel46" text="{i18n>checkoutDeliveryAddressZip}"/>
-							<Text id="_IDGenText23" text="{/DeliveryAddress/ZipCode}"/>
-							<Label id="_IDGenLabel47" text="{i18n>checkoutDeliveryAddressCountry}"/>
-							<Text id="_IDGenText24" text="{/DeliveryAddress/Country}"/>
-							<Label id="_IDGenLabel48" text="{i18n>checkoutDeliveryAddressNote}"/>
-							<Text id="_IDGenText25" text="{/DeliveryAddress/Note}"/>
-						</form:content>
-					</form:SimpleForm>
-					<form:SimpleForm id="_IDGenSimpleForm13"
-						editable="false"
-						layout="ResponsiveGridLayout"
-						visible="{= !${/DifferentDeliveryAddress}}"
-						ariaLabelledBy="shippingAddressTitle2">
-						<form:toolbar>
-							<Toolbar id="toolbar5SameAsInvoice">
-								<Title
-									id="shippingAddressTitle2"
-									text="{i18n>checkoutDeliveryAddressTitle}"
-									level="H2"
-									titleStyle="H4"/>
-								<ToolbarSpacer id="_IDGenToolbarSpacer9"/>
-								<Button
-									id="backToDifferentDeliveryAddress"
-									icon="sap-icon://edit"
-									tooltip="{i18n>backToWizard}"
-									type="Emphasized"
-									press="._navBackToStep">
-									<customData>
-										<core:CustomData key="navBackTo" value="invoiceStep"/>
-									</customData>
-								</Button>
-							</Toolbar>
-						</form:toolbar>
-						<form:content>
-							<Text id="_IDGenText26" text="{i18n>checkoutSummarySameAsInvoice}"/>
-						</form:content>
-					</form:SimpleForm>
+				
+					
 				</content>
 				<footer>
 					<Bar id="summaryFooterBar">

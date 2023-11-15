@@ -21,7 +21,7 @@
         "product_name": "Irish Cream",
         "price": 20.00,
         "number_available": 25,
-        "image": "../img/irish cream'.jpg",
+        "image": "../img/irishcream.jpg",
         "credit_available": false
     },
     {
@@ -43,7 +43,7 @@
         "price": 15.00,
         "number_available": 100,
         "image": "../img/granduqued_alba.jpg",
-        "credit_available": true
+        "credit_available": false
     },
     {
         "product_name": "Gin",

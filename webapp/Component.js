@@ -22,7 +22,14 @@ sap.ui.define([
              */
             init: function () {
 
-               
+                var UserData = new sap.ui.model.json.JSONModel();
+              
+                
+                UserData.loadData("../model/UserData.json");
+                this.setModel(UserData, "UserData");
+      
+              
+                
 
                 // call the base component's init function
                 UIComponent.prototype.init.apply(this, arguments);
