@@ -25,7 +25,7 @@
 	<content>
 
 		<List id="_IDGenList1"
-		headerText="Products"
+		headerText="Catalogo de Productos"
 		items="{ProductsData>/Products}" >
 		<CustomListItem id="_IDGenCustomListItem1" class="customListItem">
         <FlexBox id="_IDGenFlexBox1" alignItems="Center">

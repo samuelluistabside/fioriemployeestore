@@ -1,0 +1,56 @@
+{
+    
+    
+    "Products" : [
+    
+    {
+        "product_name": "VS Cognac",
+        "price": 50.00,
+        "number_available": 5,
+        "image": "../img/xo-courvoisier-cognac.png",
+        "credit_available": true
+    },
+    {
+        "product_name": "Whisky",
+        "price": 30.00,
+        "number_available": 0,
+        "image": "../img/bottle_of_whiskey_on_a_transparent_background__by_prussiaart_dcqbi1q-pre.png",
+        "credit_available": true
+    },
+    {
+        "product_name": "Irish Cream",
+        "price": 20.00,
+        "number_available": 25,
+        "image": "../img/irishcream.jpg",
+        "credit_available": false
+    },
+    {
+        "product_name": "Vodka",
+        "price": 25.00,
+        "number_available": 100,
+        "image": "../img/Absolut_vodka_bottle.png",
+        "credit_available": true
+    },
+    {
+        "product_name": "Silver Tequila",
+        "price": 40.00,
+        "number_available": 50,
+        "image": "../img/silver tequila.jpg",
+        "credit_available": true
+    },
+    {
+        "product_name": "Brandy",
+        "price": 15.00,
+        "number_available": 100,
+        "image": "../img/granduqued_alba.jpg",
+        "credit_available": false
+    },
+    {
+        "product_name": "Gin",
+        "price": 30.00,
+        "number_available": 0,
+        "image": "../img/ci-tanqueray-london-dry-gin-e2ee842638459d4c.jpeg",
+        "credit_available": true
+    }
+]}
+  
