@@ -99,6 +99,11 @@
 					"pattern": "Cart",
 					"name": "Cart",
 					"target": ["Cart"]
+				},
+        {
+					"pattern": "ordercompleted",
+					"name": "ordercompleted",
+					"target": "ordercompleted"
 				}
       ],
       "targets": {
@@ -117,6 +122,15 @@
 					"id": "Checkout",
           "viewName" : "Checkout",
           "viewType": "XML"
+				},
+        "ordercompleted": {
+					"name": "OrderCompleted",
+					"controlAggregation": "beginColumnPages",
+					"level": 2,
+					"id": "Ordercompleted",
+					"title": "{i18n>orderCompletedTitle}",
+          "viewType": "XML",
+          "viewName" : "OrderCompleted"
 				},
         "Cart": {
 					"name": "Cart",

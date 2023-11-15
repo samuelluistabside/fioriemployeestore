@@ -95,7 +95,7 @@
 							<WizardStep
 								id="paymentTypeStep"
 								title="{i18n>checkoutPaymentTitle}"
-								subsequentSteps="creditCardStep, bankAccountStep, cashOnDeliveryStep"
+								subsequentSteps="creditCardStep, bankAccountStep, cashOnDeliveryStep,creditsfinal"
 								complete="goToPaymentStep"
 								icon="sap-icon://money-bills">
 								<Text id="_IDGenText2"
@@ -370,6 +370,17 @@
 								</Input>
 							</form:SimpleForm>
 						</WizardStep>
+						<WizardStep 
+						id="creditsfinal"
+						title="Credits Summary"
+						
+						>
+
+						<Text id="textcreditsfinal" />
+
+						
+						
+						</WizardStep>
 						<WizardStep
 							id="invoiceStep"
 							title="{i18n>checkoutInvoiceAddressTitle}"
@@ -619,7 +630,7 @@
 										intro="{cartProducts>Quantity} x"
 										icon="{
 											path : 'cartProducts>image',
-											formatter : '.formatter.pictureUrl'
+											formatter : '.formatter.image'
 										}"
 										title="{cartProducts>product_name}"
 										number="{

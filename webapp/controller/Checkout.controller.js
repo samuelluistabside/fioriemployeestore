@@ -82,7 +82,7 @@ sap.ui.define([
 
 			var oModel = new JSONModel(
 				{
-					SelectedPayment: "Credit Card",
+					SelectedPayment: "Credits",
 					SelectedDeliveryMethod: "Standard Delivery",
 					DifferentDeliveryAddress: false,
 					CashOnDelivery: {
@@ -195,6 +195,8 @@ sap.ui.define([
 			var oFirstStep = oWizard.getSteps()[0];
 			
 			var TitleCredits = this.getView().byId("_IDGenTitle1")
+			
+			var textcreditsfinal = this.getView().byId("textcreditsfinal")
 
 			var oCartModel = this.getModel("cartProducts")
 			var oCartEntries = oCartModel.getProperty("/cartEntries");
@@ -284,9 +286,11 @@ sap.ui.define([
 						
 					}else{
 						
-						aUsers[userindex].credits = aUsers[userindex].credits - sumtotal;  
-						TitleCredits.setText("Credits: " + aUsers[userindex].credits + " USD" )
-						oElement.setNextStep(this.byId("bankAccountStep"));
+						//aUsers[userindex].credits = aUsers[userindex].credits - sumtotal;  
+						//TitleCredits.setText("Credits: " + aUsers[userindex].credits + " USD" )
+						var creditsleft = aUsers[userindex].credits - sumtotal
+						textcreditsfinal.setText("Rigth Now you have: " + aUsers[userindex].credits + " USD in credits , after this pruchase for:  " + sumtotal + " USD, youll have :   "  + creditsleft  + " USD in credits" )
+						oElement.setNextStep(this.byId("creditsfinal"));
 					}
 					
 
@@ -336,9 +340,9 @@ sap.ui.define([
 
 				}else{
 
-					aUsers[userindex].credits = aUsers[userindex].credits - sumtotal; 
-					TitleCredits.setText("Credits: " + aUsers[userindex].credits + " USD" )
-					oElement.setNextStep(this.byId("bankAccountStep"));
+					var creditsleft = aUsers[userindex].credits - sumtotal
+					textcreditsfinal.setText("Rigth Now you have: " + aUsers[userindex].credits + " USD in credits , after this pruchase for:  " + sumtotal + " USD, youll have :   "  + creditsleft  + " USD in credits" )
+					oElement.setNextStep(this.byId("creditsfinal"));
 				}
 					break;
 			}
@@ -567,14 +571,57 @@ sap.ui.define([
 					MessageBox.Action.NO],
 				onClose: function (oAction) {
 					if (oAction === MessageBox.Action.YES) {
+
+						var UserData = this.getOwnerComponent().getModel("UserData")
+
+						try {
+							var oUser = sap.ushell.Container.getService("UserInfo").getUser().getFullName();
+							//console.log("current user: ","'",oUser.trim(),"'")
+					
+							} catch (error) {
+					
+							var oUser = "Default User";
+							//console.log("current user: ","'",oUser.trim(),"'")
+							
+
+							}
+
+						var userindex = 0
+						var sumtotal = 0
+
+						var oCartModel2 = this.getModel("cartProducts")
+						var oCartEntries2 = oCartModel2.getProperty("/cartEntries");
+					
+
+						var aUsers = UserData.getProperty("/User_Data");
+						for (var i = 0; i < aUsers.length; i++) {
+							if (aUsers[i].name === oUser) {
+								userindex = i
+								var fCredits = aUsers[i].credits;
+								break;
+							}
+						}
+
+						for(var key in oCartEntries2) 
+						{
+							sumtotal = sumtotal + (oCartEntries2[key].price * oCartEntries2[key].Quantity)
+							
+
+							}
+
+						aUsers[userindex].credits = aUsers[userindex].credits - sumtotal;
+						
+						var TitleCredits = this.getView().byId("_IDGenTitle1")
+						TitleCredits.setText("Credits: " + aUsers[userindex].credits + " USD" )
+
 						// resets Wizard
 						var oWizard = this.byId("shoppingCartWizard");
 						var oModel = this.getModel();
-						var oCartModel = this.getOwnerComponent().getModel("cartProducts");
+						var oCartModel = this.getModel("cartProducts");
 						this._navToWizardStep(this.byId("contentsStep"));
 						oWizard.discardProgress(oWizard.getSteps()[0]);
 						var oModelData = oModel.getData();
-						oModelData.SelectedPayment = "Credit Card";
+						oModelData.SelectedPayment = "Credits";
 						oModelData.SelectedDeliveryMethod = "Standard Delivery";
 						oModelData.DifferentDeliveryAddress = false;
 						oModelData.CashOnDelivery = {};
@@ -587,6 +634,7 @@ sap.ui.define([
 						oCartModelData.cartEntries = {};
 						oCartModelData.totalPrice = 0;
 						oCartModel.setData(oCartModelData);
+						console.log("llego hasta aqui")
 						this.getRouter().navTo(sRoute);
 					}
 				}.bind(this)
