@@ -63,8 +63,8 @@ sap.ui.define([
 				"A": oBundle.getText("statusA"),
 				"O": oBundle.getText("statusO"),
 				"D": oBundle.getText("statusD"),
-				"true" : "credit product",
-				"false": "cash product"
+				"true" : "producto disponible para creditos",
+				"false": "producto disponible para pago usd"
 			};
 
 			return mStatusText[sStatus] || sStatus;

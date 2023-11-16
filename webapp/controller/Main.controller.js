@@ -46,7 +46,7 @@ sap.ui.define([
 
                 
 
-                 //TitleCredits.setText("Credits: " + fCredits + " USD" )
+                 //TitleCredits.setText("Creditos: " + fCredits + " USD" )
                 // Display the credit.
               
 
@@ -86,7 +86,7 @@ sap.ui.define([
                     }
                 }
 
-                TitleCredits.setText("Credits: " + fCredits + " USD" )
+                TitleCredits.setText("Creditos: " + fCredits + " USD" )
 
                 //You code here to run every time when your detail page is called.
             },
@@ -132,10 +132,10 @@ sap.ui.define([
         
             formatter: {
                 formatAvailability: function(number_available) {
-                    return number_available ? "Available " : "Not Available";
+                    return number_available ? "Disponible" : "No Disponible";
                 },
                 formatAvailabilitycredit: function(credit_available) {
-                    return credit_available ? "Credit Redemption " : "Cash Payment";
+                    return credit_available ? "Canjeo de Creditos " : "Pago en USD";
                 }, 
             }
         });

@@ -71,7 +71,7 @@ sap.ui.define([
 			}
 
 		
-			TitleCredits.setText("Credits: " + fCredits + " USD" )
+			TitleCredits.setText("Creditos: " + fCredits + " USD" )
 
 
 
@@ -287,9 +287,9 @@ sap.ui.define([
 					}else{
 						
 						//aUsers[userindex].credits = aUsers[userindex].credits - sumtotal;  
-						//TitleCredits.setText("Credits: " + aUsers[userindex].credits + " USD" )
+						//TitleCredits.setText("Creditos: " + aUsers[userindex].credits + " USD" )
 						var creditsleft = aUsers[userindex].credits - sumtotal
-						textcreditsfinal.setText("Rigth Now you have: " + aUsers[userindex].credits + " USD in credits , after this pruchase for:  " + sumtotal + " USD, youll have :   "  + creditsleft  + " USD in credits" )
+						textcreditsfinal.setText("Actualmente tienes: " + aUsers[userindex].credits + " USD en creditos , luego de esta compra por :  " + sumtotal + " USD, tendras :   "  + creditsleft  + " USD en creditos" )
 						oElement.setNextStep(this.byId("creditsfinal"));
 					}
 					
@@ -341,7 +341,7 @@ sap.ui.define([
 				}else{
 
 					var creditsleft = aUsers[userindex].credits - sumtotal
-					textcreditsfinal.setText("Rigth Now you have: " + aUsers[userindex].credits + " USD in credits , after this pruchase for:  " + sumtotal + " USD, youll have :   "  + creditsleft  + " USD in credits" )
+					textcreditsfinal.setText("Actualmente tienes: " + aUsers[userindex].credits + " USD en creditos , luego de esta compra por :  " + sumtotal + " USD, tendras :   "  + creditsleft  + " USD en creditos" )
 					oElement.setNextStep(this.byId("creditsfinal"));
 				}
 					break;
@@ -612,7 +612,7 @@ sap.ui.define([
 						aUsers[userindex].credits = aUsers[userindex].credits - sumtotal;
 						
 						var TitleCredits = this.getView().byId("_IDGenTitle1")
-						TitleCredits.setText("Credits: " + aUsers[userindex].credits + " USD" )
+						TitleCredits.setText("Creditos: " + aUsers[userindex].credits + " USD" )
 
 						// resets Wizard
 						var oWizard = this.byId("shoppingCartWizard");

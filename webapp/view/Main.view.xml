@@ -51,7 +51,7 @@
                         unit="USD"
                     />
                 <ObjectAttribute class="availability" id="_IDGenObjectAttribute1" text="{path: 'ProductsData>number_available', formatter: '.formatter.formatAvailability'}" />
-                 <Button tooltip="Add To Cart" id="_IDGenButton1" icon="sap-icon://cart-3" text="Add to Cart" press=".onAddToCart" enabled="{= ${ProductsData>number_available} > 0}" />
+                 <Button tooltip="Add To Cart" id="_IDGenButton1" icon="sap-icon://cart-3" text="Agregar al Carrito" press=".onAddToCart" enabled="{= ${ProductsData>number_available} > 0}" />
                 </VBox>
 				
 				

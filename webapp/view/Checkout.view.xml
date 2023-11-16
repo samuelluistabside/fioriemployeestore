@@ -248,7 +248,6 @@
 						<WizardStep
 							id="bankAccountStep"
 							title="{i18n>checkoutBankAccountTitle}"
-							nextStep="invoiceStep"
 							icon="sap-icon://official-service">
 							<Panel id="_IDGenPanel1">
 								<layout:Grid id="_IDGenGrid1"
@@ -372,7 +371,7 @@
 						</WizardStep>
 						<WizardStep 
 						id="creditsfinal"
-						title="Credits Summary"
+						title="Resumen de Creditos"
 						
 						>
 

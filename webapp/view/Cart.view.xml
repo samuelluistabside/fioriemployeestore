@@ -4,7 +4,7 @@
 	xmlns:mvc="sap.ui.core.mvc">
 	<Page
 		id="page"
-		title="Cart"
+		title="Carrito"
 		backgroundDesign="Solid"
 		showNavButton="{appView>/smallScreenMode}"
 		navButtonPress=".onBack"
@@ -15,7 +15,7 @@
 				rootRole="Region"
 				rootLabel="{i18n>Cart_rootLabel}"
 				contentRole="Main"
-				contentLabel="Items in Shopping Cart"
+				contentLabel="Productos en Carrito"
 				footerRole="Region"
 				footerLabel="{i18n>Cart_footerLabel}"
 				headerRole="Region"
@@ -73,13 +73,13 @@
 					}
 				}"
 				mode="{cfg>/listMode}"
-				noDataText="No items"
+				noDataText="No hay productos"
 				selectionChange=".onEntryListSelect">
 				<headerToolbar>
 					<Toolbar id="_IDGenToolbar2">
 						<Title id="_IDGenTitle1"
 							level="H6"
-							text="Items in Shopping Cart"
+							text="Productos en Carrito"
 							titleStyle="H6"/>
 					</Toolbar>
 				</headerToolbar>
