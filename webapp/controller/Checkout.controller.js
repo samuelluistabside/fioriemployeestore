@@ -265,20 +265,20 @@ sap.ui.define([
 
 						if( !creditsallow & allcredit){
 
-							//validationtext.setText("You dont have enough credits to order all the products in the cart")
+							//validationtext.setText("No tienes suficientes créditos para pedir todos los productos del carrito")
 
-							MessageToast.show("You dont have enough credits to order all the products in the cart");
+							MessageToast.show("No tienes suficientes créditos para pedir todos los productos del carrito");
 
 
 						}else if (creditsallow & !allcredit){
 
-							//validationtext.setText("There are products in the cart that are not credit-redeemable")
-							MessageToast.show("There are products in the cart that are not credit-redeemable");
+							//validationtext.setText("Hay productos en el carrito que no se pueden canjear con creditos")
+							MessageToast.show("Hay productos en el carrito que no se pueden canjear con creditos");
 
 						}else if (!creditsallow & !allcredit){
 
-							//validationtext.setText("There are products in the cart that are not credit-redeemable")
-							MessageToast.show("There are products in the cart that are not credit-redeemable");
+							//validationtext.setText("Hay productos en el carrito que no se pueden canjear con creditos")
+							MessageToast.show("Hay productos en el carrito que no se pueden canjear con creditos");
 						}
 
 						//validationtext.setText("")
@@ -304,8 +304,8 @@ sap.ui.define([
 					paymentusd = true
 					if ( !allcash){
 
-						//validationtext.setText("There are products in the cart that are not cash-redeemable")
-						MessageToast.show("There are products in the cart that are not cash-redeemable");
+						//validationtext.setText("Hay productos en el carrito que no se pueden comprar con USD")
+						MessageToast.show("Hay productos en el carrito que no se pueden comprar con USD");
 						//oElement.setNextStep(this.byId("paymentTypeStep"));
 						oWizard.discardProgress(oFirstStep);
 						// scroll to top
@@ -329,13 +329,13 @@ sap.ui.define([
 
 					}else if (creditsallow & !allcredit){
 
-						//validationtext.setText("There are products in the cart that are not credit-redeemable")
-						MessageToast.show("There are products in the cart that are not credit-redeemable");
+						//validationtext.setText("Hay productos en el carrito que no se pueden canjear con creditos")
+						MessageToast.show("Hay productos en el carrito que no se pueden canjear con creditos");
 
 					}else if (!creditsallow & !allcredit){
 
-						//validationtext.setText("There are products in the cart that are not credit-redeemable")
-						MessageToast.show("There are products in the cart that are not credit-redeemable");
+						//validationtext.setText("Hay productos en el carrito que no se pueden canjear con creditos")
+						MessageToast.show("Hay productos en el carrito que no se pueden canjear con creditos");
 					}
 					//oElement.setNextStep(this.byId("paymentTypeStep"));
 					oWizard.discardProgress(oFirstStep);
