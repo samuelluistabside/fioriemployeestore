@@ -30,7 +30,7 @@
 		<CustomListItem id="_IDGenCustomListItem1" class="customListItem">
         <FlexBox id="_IDGenFlexBox1" alignItems="Center">
             <items>
-			<Image id="_IDGenImage1" src="{ProductsData>image}" densityAware="false" class="productimage"/>
+			<Image id="_IDGenImage1" src="{ProductsData>image}" densityAware="false" class="productimage" />
            
 		
 			     <VBox id="_IDGenVBox1" class="centerbox">

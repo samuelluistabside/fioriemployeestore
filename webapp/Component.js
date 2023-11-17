@@ -23,10 +23,26 @@ sap.ui.define([
             init: function () {
 
                 var UserData = new sap.ui.model.json.JSONModel();
+                var ProductsData = new sap.ui.model.json.JSONModel("model/Products.json");
+
+
+                //var oRootPath = jQuery.sap.getModulePath("./"); // your resource root
+                var oImageModel = new sap.ui.model.json.JSONModel("img");
+
+                //this._sPNGpath = $.sap.getModulePath("hcm.myleaverequest.ESSLeaveReqExt", "/img");
+                        
+                this.setModel(oImageModel, "imageModel2");
+
+
+                var sPath = sap.ui.require.toUrl("img/santa_teresa_1796.png");
+                var oModelimage = new sap.ui.model.json.JSONModel({ imagePath: sPath });
+                this.setModel(oModelimage, "imagemodel");
+                
               
                 
-                UserData.loadData("../model/UserData.json");
+                UserData.loadData("model/UserData.json");
                 this.setModel(UserData, "UserData");
+                this.setModel(ProductsData, "ProductsData");
       
               
                 

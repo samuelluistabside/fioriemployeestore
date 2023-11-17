@@ -18,11 +18,13 @@ sap.ui.define([
 
               
                 
-                var ProductsData = new sap.ui.model.json.JSONModel("../model/Products.json");
+                //var ProductsData = new sap.ui.model.json.JSONModel("../model/Products.json");
+                var ProductsData = this.getOwnerComponent().getModel("ProductsData")
 			    this.getView().setModel(ProductsData,"ProductsData");
 
                
-                
+                var ImageData = this.getOwnerComponent().getModel("imagemodel")
+                this.getView().setModel(ImageData,"imagemodel");
                 var oModel = this.getView().getModel()
                 
               

@@ -5,35 +5,35 @@
             "price": 26.50,
             "number_available": 23,
             "credit_available": true,
-            "image": "../img/santa_teresa_1796.png"
+            "image": "img/santa_teresa_1796.png"
         },
         {
             "product_name": "Santa Teresa Linaje",
             "price": 14.50,
             "number_available": 7,
             "credit_available": false,
-            "image": "../img/ron-linaje-puiuko7zr0h91dhqhudqzxmsmrmtr2cl3ourcg9mgg.png"
+            "image": "img/ron-linaje-puiuko7zr0h91dhqhudqzxmsmrmtr2cl3ourcg9mgg.png"
         },
         {
             "product_name": "Santa Teresa Gran Reserva",
             "price": 8.00,
             "number_available": 41,
             "credit_available": true,
-            "image": "../img/ron-santa-teresa-gran-reserva.png"
+            "image": "img/ron-santa-teresa-gran-reserva.png"
         },
         {
             "product_name": "Arakú",
             "price": 13.00,
             "number_available": 0,
             "credit_available": false,
-            "image": "../img/araku_ron_y_caf_.png"
+            "image": "img/araku_ron_y_caf_.png"
         },
         {
             "product_name": "Rhum Orange Liqueur",
             "price": 14.50,
             "number_available": 29,
             "credit_available": false,
-            "image": "../img/Rhum-Orange.png"
+            "image": "img/Rhum-Orange.png"
         }
     ]
 }
