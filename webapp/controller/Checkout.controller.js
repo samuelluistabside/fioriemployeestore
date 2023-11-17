@@ -27,6 +27,7 @@ sap.ui.define([
 ) {
 	"use strict";
 
+	var paymentusd = false
 	return BaseController.extend("employeestore.controller.Checkout", {
 
 		types : {
@@ -34,6 +35,7 @@ sap.ui.define([
 		},
 		
 
+		
 		formatter: formatter,
 
 		onInit: function () {
@@ -253,6 +255,7 @@ sap.ui.define([
 			}
 			switch (selectedKey) {
 				case "Pay with Credits":
+				
 					
 					//oElement.setNextStep(this.byId("bankAccountStep"));
 					//if credits allows and if all products are credits avaleibale
@@ -298,6 +301,7 @@ sap.ui.define([
 				
 					break;
 				case " Bank Transfer":
+					paymentusd = true
 					if ( !allcash){
 
 						//validationtext.setText("There are products in the cart that are not cash-redeemable")
@@ -609,10 +613,17 @@ sap.ui.define([
 
 							}
 
+
+						
+						if (!paymentusd){
+
 						aUsers[userindex].credits = aUsers[userindex].credits - sumtotal;
 						
 						var TitleCredits = this.getView().byId("_IDGenTitle1")
 						TitleCredits.setText("Creditos: " + aUsers[userindex].credits + " USD" )
+
+						}
+						
 
 						// resets Wizard
 						var oWizard = this.byId("shoppingCartWizard");

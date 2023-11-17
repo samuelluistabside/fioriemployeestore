@@ -1,165 +1,178 @@
 {
-    "_version": "1.58.0",
-    "sap.app": {
-        "id": "employeestore",
-        "type": "application",
-        "i18n": "i18n/i18n.properties",
-        "applicationVersion": {
-            "version": "0.0.1"
-        },
-        "title": "{{appTitle}}",
-        "description": "{{appDescription}}",
-        "resources": "resources.json",
-        "sourceTemplate": {
-            "id": "@sap/generator-fiori:basic",
-            "version": "1.11.3",
-            "toolsId": "67fed0c5-f551-4b5b-a789-f3a869737cb9"
-        }
+  "_version": "1.58.0",
+  "sap.app": {
+    "id": "employeestore",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
     },
-    "sap.ui": {
-        "technology": "UI5",
-        "icons": {
-            "icon": "",
-            "favIcon": "",
-            "phone": "",
-            "phone@2": "",
-            "tablet": "",
-            "tablet@2": ""
-        },
-        "deviceTypes": {
-            "desktop": true,
-            "tablet": true,
-            "phone": true
-        }
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:basic",
+      "version": "1.11.3",
+      "toolsId": "67fed0c5-f551-4b5b-a789-f3a869737cb9"
     },
-    "sap.ui5": {
-        "flexEnabled": true,
-        "dependencies": {
-            "minUI5Version": "1.119.2",
-            "libs": {
-                "sap.m": {},
-                "sap.ui.core": {},
-                "sap.f": {},
-                "sap.suite.ui.generic.template": {},
-                "sap.ui.comp": {},
-                "sap.ui.generic.app": {},
-                "sap.ui.table": {},
-                "sap.ushell": {}
-            }
-        },
-        "contentDensities": {
-            "compact": true,
-            "cozy": true
-        },
-        "models": {
-            "i18n": {
-                "type": "sap.ui.model.resource.ResourceModel",
-                "settings": {
-                    "bundleName": "employeestore.i18n.i18n"
-                }
-            }
-        },
-        "resources": {
-            "css": [
-                {
-                    "uri": "css/style.css"
-                }
-            ]
-            
-        },
-        "routing": {
-            "config": {
-                "routerClass": "sap.f.routing.Router",
-                "type": "View",
-                "viewType": "XML",
-                "controlId": "layout",
-                "async": true,
-                "controlAggregation": "midColumnPages",
-                "viewPath": "employeestore.view",
-                "clearControlAggregation": false,
-                "bypassed": {
-                    "target": [
-                        "Main"
-                    ]
-                }
-            },
-            "routes": [
-                {
-                    "name": "RouteMain",
-                    "pattern": ":?query:",
-                    "target": [
-                        "TargetMain"
-                    ]
-                },
-                {
-                    "pattern": "checkout",
-                    "name": "checkout",
-                    "target": "checkout"
-                },
-                {
-                    "pattern": "Cart",
-                    "name": "Cart",
-                    "target": [
-                        "Cart"
-                    ]
-                },
-                {
-                    "pattern": "ordercompleted",
-                    "name": "ordercompleted",
-                    "target": "ordercompleted"
-                }
-            ],
-            "targets": {
-                "TargetMain": {
-                    "viewType": "XML",
-                    "transition": "slide",
-                    "controlAggregation": "beginColumnPages",
-                    "viewId": "Main",
-                    "viewName": "Main"
-                },
-                "checkout": {
-                    "name": "Checkout",
-                    "controlAggregation": "beginColumnPages",
-                    "level": 1,
-                    "title": "{i18n>checkoutTitle}",
-                    "id": "Checkout",
-                    "viewName": "Checkout",
-                    "viewType": "XML"
-                },
-                "ordercompleted": {
-                    "name": "OrderCompleted",
-                    "controlAggregation": "beginColumnPages",
-                    "level": 2,
-                    "id": "Ordercompleted",
-                    "title": "{i18n>orderCompletedTitle}",
-                    "viewType": "XML",
-                    "viewName": "OrderCompleted"
-                },
-                "Cart": {
-                    "name": "Cart",
-                    "viewId": "Cart",
-                    "controlAggregation": "midColumnPages",
-                    "id": "Cart",
-                    "viewName": "Cart",
-                    "viewType": "XML",
-                    "title": {
-                        "parts": [
-                            "i18n>tabTitle",
-                            "i18n>tableTitleCart"
-                        ]
-                    }
-                }
-            }
-        },
-        "rootView": {
-            "viewName": "employeestore.view.App",
-            "type": "XML",
-            "async": true,
-            "id": "App"
+    "crossNavigation": {
+      "inbounds": {
+        "display-display": {
+          "semanticObject": "display",
+          "action": "display",
+          "title": "{{flpTitle}}",
+          "subTitle": "{{flpSubtitle}}",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
         }
-    },
-    "sap.cloud": {
-        "public": true,
-        "service": "employeestore"
+      }
     }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.119.2",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.f": {},
+        "sap.suite.ui.generic.template": {},
+        "sap.ui.comp": {},
+        "sap.ui.generic.app": {},
+        "sap.ui.table": {},
+        "sap.ushell": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "employeestore.i18n.i18n"
+        }
+      }
+    },
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ]
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.f.routing.Router",
+        "type": "View",
+        "viewType": "XML",
+        "controlId": "layout",
+        "async": true,
+        "controlAggregation": "midColumnPages",
+        "viewPath": "employeestore.view",
+        "clearControlAggregation": false,
+        "bypassed": {
+          "target": [
+            "Main"
+          ]
+        }
+      },
+      "routes": [
+        {
+          "name": "RouteMain",
+          "pattern": ":?query:",
+          "target": [
+            "TargetMain"
+          ]
+        },
+        {
+          "pattern": "checkout",
+          "name": "checkout",
+          "target": "checkout"
+        },
+        {
+          "pattern": "Cart",
+          "name": "Cart",
+          "target": [
+            "Cart"
+          ]
+        },
+        {
+          "pattern": "ordercompleted",
+          "name": "ordercompleted",
+          "target": "ordercompleted"
+        }
+      ],
+      "targets": {
+        "TargetMain": {
+          "viewType": "XML",
+          "transition": "slide",
+          "controlAggregation": "beginColumnPages",
+          "viewId": "Main",
+          "viewName": "Main"
+        },
+        "checkout": {
+          "name": "Checkout",
+          "controlAggregation": "beginColumnPages",
+          "level": 1,
+          "title": "{i18n>checkoutTitle}",
+          "id": "Checkout",
+          "viewName": "Checkout",
+          "viewType": "XML"
+        },
+        "ordercompleted": {
+          "name": "OrderCompleted",
+          "controlAggregation": "beginColumnPages",
+          "level": 2,
+          "id": "Ordercompleted",
+          "title": "{i18n>orderCompletedTitle}",
+          "viewType": "XML",
+          "viewName": "OrderCompleted"
+        },
+        "Cart": {
+          "name": "Cart",
+          "viewId": "Cart",
+          "controlAggregation": "midColumnPages",
+          "id": "Cart",
+          "viewName": "Cart",
+          "viewType": "XML",
+          "title": {
+            "parts": [
+              "i18n>tabTitle",
+              "i18n>tableTitleCart"
+            ]
+          }
+        }
+      }
+    },
+    "rootView": {
+      "viewName": "employeestore.view.App",
+      "type": "XML",
+      "async": true,
+      "id": "App"
+    }
+  },
+  "sap.cloud": {
+    "public": true,
+    "service": "employeestore"
+  }
 }
