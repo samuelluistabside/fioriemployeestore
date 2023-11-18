@@ -21,15 +21,23 @@ sap.ui.define([
              * @override
              */
             init: function () {
+                //var userdatajsonurl = sap.ui.require.toUrl("employeestore/model/UserData.json") 
 
-                var UserData = new sap.ui.model.json.JSONModel();
-                var ProductsData = new sap.ui.model.json.JSONModel("model/Products.json");
+                //var UserData = new sap.ui.model.json.JSONModel(userdatajsonurl);
+                var UserData = this.getModel("UsersModel");
+                var producstjsonurl = sap.ui.require.toUrl("employeestore/model/Products.json")  
+                //var imgurl = sap.ui.require.toUrl("employeestore/img")  
+                var ProductsData = new sap.ui.model.json.JSONModel(producstjsonurl);
 
-              
-                
-                UserData.loadData("model/UserData.json");
-                this.setModel(UserData, "UserData");
-                this.setModel(ProductsData, "ProductsData");
+
+                var oRootPath = sap.ui.require.toUrl("employeestore/img")  // your resource root
+		
+                var oImageModel = new sap.ui.model.json.JSONModel({
+                    path : oRootPath,
+                });
+                        
+                this.setModel(oImageModel, "imageModel");
+                            
       
               
                 
@@ -42,6 +50,14 @@ sap.ui.define([
 
                 // set the device model
                 this.setModel(models.createDeviceModel(), "device");
+
+                this.setModel(UserData, "UserData");
+              
+                
+                
+                //UserData.loadData("employeestore/model/UserData.json");
+              
+                this.setModel(ProductsData, "ProductsData");
             }
         });
     }

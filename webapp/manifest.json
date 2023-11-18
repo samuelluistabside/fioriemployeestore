@@ -15,6 +15,12 @@
       "version": "1.11.3",
       "toolsId": "67fed0c5-f551-4b5b-a789-f3a869737cb9"
     },
+    "dataSources": {
+      "users": {
+         "uri": "model/UserData.json",
+         "type": "JSON"
+      }
+   },
     "crossNavigation": {
       "inbounds": {
         "display-display": {
@@ -71,7 +77,11 @@
         "settings": {
           "bundleName": "employeestore.i18n.i18n"
         }
-      }
+      },
+      "UsersModel": {
+        "type": "sap.ui.model.json.JSONModel",
+        "dataSource": "users"
+     }
     },
     "resources": {
       "css": [

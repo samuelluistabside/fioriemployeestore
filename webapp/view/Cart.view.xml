@@ -87,10 +87,10 @@
 					<ObjectListItem id="_IDGenObjectListItem1"
 						intro="{cartProducts>Quantity} x"
 						type="{cfg>/listItemType}"
-						icon="{
-							path : 'cartProducts>image'
+						icon="
+							{imageModel>/path}{cartProducts>image}
 							
-						}"
+						"
 						title="{cartProducts>product_name}"
 						number="{
 							path : 'cartProducts>price',

@@ -55,10 +55,10 @@
 									<items>
 										<ObjectListItem id="_IDGenObjectListItem1"
 											intro="{cartProducts>Quantity} x"
-											icon="{
-												path : 'cartProducts>image',
-												formatter : '.formatter.image'
-											}"
+											icon="
+												
+												{imageModel>/path}{cartProducts>image}
+											"
 											title="{cartProducts>product_name}"
 											number="{
 												path : 'cartProducts>price',
@@ -627,10 +627,7 @@
 								<items>
 									<ObjectListItem id="_IDGenObjectListItem2"
 										intro="{cartProducts>Quantity} x"
-										icon="{
-											path : 'cartProducts>image',
-											formatter : '.formatter.image'
-										}"
+										icon="{imageModel>/path}{cartProducts>image}"
 										title="{cartProducts>product_name}"
 										number="{
 											path : 'cartProducts>price',
