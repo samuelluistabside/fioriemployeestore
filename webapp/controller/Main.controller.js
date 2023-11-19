@@ -14,6 +14,36 @@ sap.ui.define([
         "use strict";
 
         return BaseController.extend("employeestore.controller.Main", {
+
+            onBeforeRendering: function() {
+                try {
+                    var oUser = sap.ushell.Container.getService("UserInfo").getUser().getFullName();
+                    //console.log("current user: ","'",oUser.trim(),"'")
+          
+                  } catch (error) {
+          
+                    var oUser = "Default User";
+                    //console.log("current user: ","'",oUser.trim(),"'")
+                    
+                  }
+
+                  
+                var UserData = this.getOwnerComponent().getModel("UserData")
+
+                var TitleCredits = this.getView().byId("_IDGenTitle1")
+                var aUsers = UserData.getProperty("/User_Data");
+                for (var i = 0; i < aUsers.length; i++) {
+                    if (aUsers[i].name === oUser) {
+                        var fCredits = aUsers[i].credits;
+                        break;
+                    }
+                }
+
+
+                TitleCredits.setText("Creditos: " + fCredits + " USD" )
+                // Display the credit.
+            },
+
             onInit: function () {
 
               
@@ -44,43 +74,16 @@ sap.ui.define([
            
 
 
-                /*
+                
                
 
 
-                try {
-                    var oUser = sap.ushell.Container.getService("UserInfo").getUser().getFullName();
-                    //console.log("current user: ","'",oUser.trim(),"'")
-          
-                  } catch (error) {
-          
-                    var oUser = "Default User";
-                    //console.log("current user: ","'",oUser.trim(),"'")
-                    
-                  }
+                
+        
 
 
-                    
-                var UserData = this.getOwnerComponent().getModel("UserData")
-
-                var TitleCredits = this.getView().byId("_IDGenTitle1")
-                var aUsers = UserData.getProperty("/User_Data");
-                for (var i = 0; i < aUsers.length; i++) {
-                    if (aUsers[i].name === oUser) {
-                        var fCredits = aUsers[i].credits;
-                        break;
-                    }
-                }
-
-
-                TitleCredits.setText("Creditos: " + fCredits + " USD" )
-                // Display the credit.
-              
-
-               */
-
-                var oRootPath = sap.ui.require.toUrl("employeestore/img")  // your resource root
-		
+        this._oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+        this._oRouter.attachRouteMatched(this.handleRouteMatched, this);
                
 
             },
@@ -88,6 +91,7 @@ sap.ui.define([
             handleRouteMatched : function (evt) {
                 //Check whether is the detail page is matched.
           
+            
                 try {
                     var oUser = sap.ushell.Container.getService("UserInfo").getUser().getFullName();
                     //console.log("current user: ","'",oUser.trim(),"'")

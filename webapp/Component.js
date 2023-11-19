@@ -30,7 +30,7 @@ sap.ui.define([
                 var ProductsData = new sap.ui.model.json.JSONModel(producstjsonurl);
 
 
-                var oRootPath = sap.ui.require.toUrl("employeestore/img")  // your resource root
+                var oRootPath = sap.ui.require.toUrl("employeestore/img")   // your resource root
 		
                 var oImageModel = new sap.ui.model.json.JSONModel({
                     path : oRootPath,
