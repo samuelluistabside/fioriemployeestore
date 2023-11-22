@@ -4,13 +4,15 @@
     {
         "name": "Default User",
         "email":"",
-        "credits":150.00
+        "credits":150.00,
+        "thismonthpurchased":0
 
     },
     {
         "name": "Mario Catapano",
         "email":"mario.catapano@absidecorp.com",
-        "credits":90.00
+        "credits":90.00,
+        "thismonthpurchased":0
 
     }
 ]

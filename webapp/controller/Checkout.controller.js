@@ -206,10 +206,12 @@ sap.ui.define([
 			var allcash = true
 			var sumtotal = 0
 
+			var totalproductquantity = 0
 			var validationtext = this.getView().byId("validationtext")
 
 			for(var key in oCartEntries) 
 			{
+				totalproductquantity = totalproductquantity + oCartEntries[key].Quantity
 				sumtotal = sumtotal + (oCartEntries[key].price * oCartEntries[key].Quantity)
 				if (oCartEntries[key].credit_available === false) {
 					allcredit = false
@@ -239,12 +241,14 @@ sap.ui.define([
 			var userindex = 0
 
 		
+			var maxpurchasedmonthallowed = 5
 
 			var aUsers = UserData.getProperty("/User_Data");
 			for (var i = 0; i < aUsers.length; i++) {
 				if (aUsers[i].name === oUser) {
 					userindex = i
 					var fCredits = aUsers[i].credits;
+					var purchasedthismonth =   aUsers[i].thismonthpurchased
 					break;
 				}
 			}
@@ -311,8 +315,26 @@ sap.ui.define([
 						// scroll to top
 						oWizard.goToStep(oFirstStep);
 					}else{
-						//validationtext.setText("")
+
+						if( purchasedthismonth +  totalproductquantity <= maxpurchasedmonthallowed){
+
+							//validationtext.setText("")
 						oElement.setNextStep(this.byId("bankAccountStep"));
+
+						}else{
+						
+						var purchasedallowleft = maxpurchasedmonthallowed - (purchasedthismonth)
+
+							//validationtext.setText("Hay productos en el carrito que no se pueden comprar con USD")
+						MessageToast.show("La cantidad de productos en el carrito es mayor a la cantidad permitida restante por este mes (" + purchasedallowleft + " productos)" );
+						//oElement.setNextStep(this.byId("paymentTypeStep"));
+						oWizard.discardProgress(oFirstStep);
+						// scroll to top
+						oWizard.goToStep(oFirstStep);
+
+
+						}
+						
 					}
 					
 					break;
