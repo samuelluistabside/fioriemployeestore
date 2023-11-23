@@ -424,6 +424,55 @@ sap.ui.define([
 		 * shows warning message and submits order if confirmed
 		 */
 		handleWizardSubmit: function () {
+
+			var UserData = this.getOwnerComponent().getModel("UserData")
+
+						try {
+							var oUser = sap.ushell.Container.getService("UserInfo").getUser().getFullName();
+							//console.log("current user: ","'",oUser.trim(),"'")
+					
+							} catch (error) {
+					
+							var oUser = "Default User";
+							//console.log("current user: ","'",oUser.trim(),"'")
+							
+
+							}
+
+						var userindex = 0
+						var sumtotal = 0
+
+						var oCartModel2 = this.getModel("cartProducts")
+						var oCartEntries2 = oCartModel2.getProperty("/cartEntries");
+					
+
+						var aUsers = UserData.getProperty("/User_Data");
+						for (var i = 0; i < aUsers.length; i++) {
+							if (aUsers[i].name === oUser) {
+								userindex = i
+								var fCredits = aUsers[i].credits;
+								break;
+							}
+						}
+
+						for(var key in oCartEntries2) 
+						{
+							sumtotal = sumtotal + (oCartEntries2[key].price * oCartEntries2[key].Quantity)
+							
+
+							}
+
+
+						
+						if (!paymentusd){
+
+						aUsers[userindex].credits = aUsers[userindex].credits - sumtotal;
+						
+						var TitleCredits = this.getView().byId("_IDGenTitle1")
+						TitleCredits.setText("Creditos: " + aUsers[userindex].credits + " USD" )
+
+						}
+
 			var sText = this.getResourceBundle().getText("checkoutControllerAreYouSureSubmit");
 			this._handleSubmitOrCancel(sText, "confirm", "ordercompleted");
 		},
@@ -598,53 +647,7 @@ sap.ui.define([
 				onClose: function (oAction) {
 					if (oAction === MessageBox.Action.YES) {
 
-						var UserData = this.getOwnerComponent().getModel("UserData")
-
-						try {
-							var oUser = sap.ushell.Container.getService("UserInfo").getUser().getFullName();
-							//console.log("current user: ","'",oUser.trim(),"'")
-					
-							} catch (error) {
-					
-							var oUser = "Default User";
-							//console.log("current user: ","'",oUser.trim(),"'")
-							
-
-							}
-
-						var userindex = 0
-						var sumtotal = 0
-
-						var oCartModel2 = this.getModel("cartProducts")
-						var oCartEntries2 = oCartModel2.getProperty("/cartEntries");
-					
-
-						var aUsers = UserData.getProperty("/User_Data");
-						for (var i = 0; i < aUsers.length; i++) {
-							if (aUsers[i].name === oUser) {
-								userindex = i
-								var fCredits = aUsers[i].credits;
-								break;
-							}
-						}
-
-						for(var key in oCartEntries2) 
-						{
-							sumtotal = sumtotal + (oCartEntries2[key].price * oCartEntries2[key].Quantity)
-							
-
-							}
-
-
 						
-						if (!paymentusd){
-
-						aUsers[userindex].credits = aUsers[userindex].credits - sumtotal;
-						
-						var TitleCredits = this.getView().byId("_IDGenTitle1")
-						TitleCredits.setText("Creditos: " + aUsers[userindex].credits + " USD" )
-
-						}
 						
 
 						// resets Wizard
