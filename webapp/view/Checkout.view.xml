@@ -793,6 +793,22 @@
 							<Text id="_IDGenText15" text="{/CashOnDelivery/Email}"/>
 						</form:content>
 					</form:SimpleForm>
+				   <Label  id="depositreferencelabel" text="Ingresar # Referencia de Depostio" labelFor="depositreference" />
+					<Input
+						id="depositreference"
+						class="sapUiSmallMarginBottom"
+						placeholder="# Referencia"
+						valueStateText="numero de referencia obligatorio.  10 caracteres."
+						required="true"
+						value="{
+							path : '/reference',
+							type : 'sap.ui.model.type.String',
+							constraints : {
+								minLength: 10,
+								maxLength: 10
+							}
+						}"
+						liveChange= ".onreferenceChange" />
 				
 					
 				</content>

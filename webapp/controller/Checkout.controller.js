@@ -28,6 +28,7 @@ sap.ui.define([
 	"use strict";
 
 	var paymentusd = false
+	
 	return BaseController.extend("employeestore.controller.Checkout", {
 
 		types : {
@@ -39,6 +40,9 @@ sap.ui.define([
 		formatter: formatter,
 
 		onInit: function () {
+
+			this.getView().byId("depositreferencelabel").setVisible(paymentusd);
+			this.getView().byId("depositreference").setVisible(paymentusd);
 
 			var UserData = this.getOwnerComponent().getModel("UserData")
 			console.log(UserData)
@@ -180,6 +184,21 @@ sap.ui.define([
 			oMessagePopover.openBy(oButton);
 		},
 
+		onreferenceChange: function(oEvent){
+
+
+			
+			var textreference = this.getView().byId("depositreference").getValue();
+			console.log(textreference.length)
+			var oInput = oEvent.getSource();
+			//console.log(oInput)
+			if(textreference.length == 10){
+				this.getView().byId("submitOrder").setEnabled(true);
+			}else{
+				this.getView().byId("submitOrder").setEnabled(false);
+			}
+		},
+
 		//To be able to stub the addDependent function in unit test, we added it in a separate function
 		_addDependent: function (oMessagePopover) {
 			this.getView().addDependent(oMessagePopover);
@@ -259,6 +278,9 @@ sap.ui.define([
 			}
 			switch (selectedKey) {
 				case "Pay with Credits":
+					this.getView().byId("depositreferencelabel").setVisible(paymentusd);
+					this.getView().byId("depositreference").setVisible(paymentusd);
+					this.getView().byId("submitOrder").setEnabled(!paymentusd);
 				
 					
 					//oElement.setNextStep(this.byId("bankAccountStep"));
@@ -266,6 +288,7 @@ sap.ui.define([
 
 
 					if( !creditsallow || !allcredit) {
+
 
 						if( !creditsallow & allcredit){
 
@@ -306,6 +329,9 @@ sap.ui.define([
 					break;
 				case " Bank Transfer":
 					paymentusd = true
+					this.getView().byId("depositreferencelabel").setVisible(paymentusd);
+					this.getView().byId("depositreference").setVisible(paymentusd);
+					this.getView().byId("submitOrder").setEnabled(!paymentusd);
 					if ( !allcash){
 
 						//validationtext.setText("Hay productos en el carrito que no se pueden comprar con USD")
@@ -340,6 +366,11 @@ sap.ui.define([
 					break;
 				case "Credit Card":
 				default:
+
+				this.getView().byId("depositreferencelabel").setVisible(paymentusd);
+				this.getView().byId("depositreference").setVisible(paymentusd);
+				this.getView().byId("submitOrder").setEnabled(!paymentusd);
+				
 					
 				if(  !creditsallow || !allcredit) {
 
