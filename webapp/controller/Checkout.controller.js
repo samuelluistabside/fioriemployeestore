@@ -701,7 +701,7 @@ sap.ui.define([
 						oCartModelData.cartEntries = {};
 						oCartModelData.totalPrice = 0;
 						oCartModel.setData(oCartModelData);
-						console.log("llego hasta aqui")
+					
 						this.getRouter().navTo(sRoute);
 					}
 				}.bind(this)

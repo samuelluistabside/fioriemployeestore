@@ -793,6 +793,7 @@
 							<Text id="_IDGenText15" text="{/CashOnDelivery/Email}"/>
 						</form:content>
 					</form:SimpleForm>
+					<Panel id="_IDGenPanel3">
 				   <Label  id="depositreferencelabel" text="Ingresar # Referencia de Depostio" labelFor="depositreference" />
 					<Input
 						id="depositreference"
@@ -809,6 +810,7 @@
 							}
 						}"
 						liveChange= ".onreferenceChange" />
+						</Panel>
 				
 					
 				</content>
