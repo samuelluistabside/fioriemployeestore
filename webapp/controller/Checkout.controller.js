@@ -278,6 +278,7 @@ sap.ui.define([
 			}
 			switch (selectedKey) {
 				case "Pay with Credits":
+					paymentusd = false
 					this.getView().byId("depositreferencelabel").setVisible(paymentusd);
 					this.getView().byId("depositreference").setVisible(paymentusd);
 					this.getView().byId("submitOrder").setEnabled(!paymentusd);
@@ -367,6 +368,7 @@ sap.ui.define([
 				case "Credit Card":
 				default:
 
+				paymentusd = false
 				this.getView().byId("depositreferencelabel").setVisible(paymentusd);
 				this.getView().byId("depositreference").setVisible(paymentusd);
 				this.getView().byId("submitOrder").setEnabled(!paymentusd);

@@ -12,41 +12,53 @@ sap.ui.define([
      */
     function (Controller, Filter, FilterOperator, JSONModel,UIComponent,BaseController,cart) {
         "use strict";
+        var UserData
+        var oUser
 
         return BaseController.extend("employeestore.controller.Main", {
 
             onBeforeRendering: function() {
                 try {
-                    var oUser = sap.ushell.Container.getService("UserInfo").getUser().getFullName();
+                    oUser = sap.ushell.Container.getService("UserInfo").getUser().getFullName();
                     //console.log("current user: ","'",oUser.trim(),"'")
           
                   } catch (error) {
           
-                    var oUser = "Default User";
+                    oUser = "Default User";
                     //console.log("current user: ","'",oUser.trim(),"'")
                     
                   }
 
-                  
-                var UserData = this.getOwnerComponent().getModel("UserData")
+                  UserData = this.getOwnerComponent().getModel("UserData")
 
-                var TitleCredits = this.getView().byId("_IDGenTitle1")
-                var aUsers = UserData.getProperty("/User_Data");
-                for (var i = 0; i < aUsers.length; i++) {
-                    if (aUsers[i].name === oUser) {
-                        var fCredits = aUsers[i].credits;
-                        break;
+                  UserData.attachRequestCompleted(function() {
+                    var TitleCredits = this.getView().byId("_IDGenTitle1")
+                    var aUsers = UserData.getProperty("/User_Data");
+                    for (var i = 0; i < aUsers.length; i++) {
+                        if (aUsers[i].name === oUser) {
+                            var fCredits = aUsers[i].credits;
+                            break;
+                        }
                     }
-                }
-
-
-                TitleCredits.setText("Creditos: " + fCredits + " USD" )
-                // Display the credit.
+    
+    
+                    TitleCredits.setText("Creditos: " + fCredits + " USD" )
+                    // Display the credit.
+                  
+                    if (UserData.getData() === undefined) {
+                        // Do something here
+                    }
+                });
+                  
+               
             },
 
             onInit: function () {
 
-              
+
+                
+
+             
                 
                 //var ProductsData = new sap.ui.model.json.JSONModel("../model/Products.json");
                 var ProductsData = this.getOwnerComponent().getModel("ProductsData")
