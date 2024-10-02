@@ -10,7 +10,8 @@ sap.ui.define([
 	"sap/ui/Device",
 	"sap/ui/core/Core",
 	"sap/ui/model/json/JSONModel",
-	"sap/m/MessageToast"
+	"sap/m/MessageToast",
+	"../model/Orders",
 ], function (
 	BaseController,
 	cart,
@@ -23,12 +24,13 @@ sap.ui.define([
 	Device,
 	oCore,
 	JSONModel,
-	MessageToast
+	MessageToast,
+	orderManager
 ) {
 	"use strict";
 
 	var paymentusd = false
-	
+	var SelectedPayment = null;
 	return BaseController.extend("employeestore.controller.Checkout", {
 
 		types : {
@@ -39,15 +41,14 @@ sap.ui.define([
 		
 		formatter: formatter,
 
-		onInit: function () {
+		loadData:function (){
 
-			this.getView().byId("depositreferencelabel").setVisible(paymentusd);
-			this.getView().byId("depositreference").setVisible(paymentusd);
+
 
 			var UserData = this.getOwnerComponent().getModel("UserData")
 			console.log(UserData)
 
-			var TitleCredits = this.getView().byId("_IDGenTitle1")
+			var TitleCredits = this.getView().byId("TituloCredits")
 
 			try {
 				var oUser = sap.ushell.Container.getService("UserInfo").getUser().getFullName();
@@ -78,14 +79,7 @@ sap.ui.define([
 
 		
 			TitleCredits.setText("Creditos: " + fCredits + " USD" )
-
-
-
 			
-
-			
-		
-
 			var oModel = new JSONModel(
 				{
 					SelectedPayment: "Credits",
@@ -118,15 +112,23 @@ sap.ui.define([
 						Expire: ""
 					}
 				}),
-				oReturnToShopButton = this.byId("returnToShopButton");
+				oReturnToShopButton = this.byId("ReturnButton");
 
 			this.setModel(oModel);
-
+			
+			
 			// previously selected entries in wizard
 			this._oHistory = {
 				prevPaymentSelect: null,
 				prevDiffDeliverySelect: null
 			};
+
+			var PaymentData = this.getOwnerComponent().getModel("PaymentData")
+			this.getView().setModel(PaymentData,"PaymentData")
+
+			 
+
+
 
 			// Assign the model object to the SAPUI5 core
 			this.setModel(oCore.getMessageManager().getMessageModel(), "message");
@@ -143,6 +145,212 @@ sap.ui.define([
 					oReturnToShopButton.focus();
 				}
 			});
+
+
+			var oDataBanks = {
+				banks: [
+					{ id: "0102", name: "Banco de Venezuela, S.A.C.A." },
+					{ id: "0104", name: "Venezolano de Crédito" },
+					{ id: "0105", name: "Mercantil" },
+					{ id: "0108", name: "Provincial" },
+					{ id: "0114", name: "Bancaribe" },
+					{ id: "0115", name: "Exterior" },
+					{ id: "0116", name: "Occidental de Descuento" },
+					{ id: "0128", name: "Banco Caroní" },
+					{ id: "0134", name: "Banesco" },
+					{ id: "0138", name: "Banco Plaza" },
+					{ id: "0137", name: "Banco Sofitasa" },
+					{ id: "0151", name: "BFC Banco Fondo Común" },
+					{ id: "0156", name: "100% Banco" },
+					{ id: "0157", name: "Del Sur" },
+					{ id: "0163", name: "Banco del Tesoro" },
+					{ id: "0166", name: "Banco Agrícola de Venezuela" }
+				]
+			};
+			
+			var oModelBanks = new sap.ui.model.json.JSONModel(oDataBanks);
+			this.getView().setModel(oModelBanks, "bankModel");
+
+			var oDataExt = {
+				ext: [
+					{ id: "0412", name: "0412" },
+					{ id: "0414", name: "0414" },
+					{ id: "0424", name: "0424" },
+					{ id: "0426", name: "0426" }
+					
+				]
+			};
+			
+			var oModelExt = new sap.ui.model.json.JSONModel(oDataExt);
+			this.getView().setModel(oModelExt, "ExtModel");
+
+			this.oCartModel;
+			if (this.sOrderId == 'cart') {
+				this.oCartModel = this.getModel("cartProducts");
+			} else {
+				this.fillCartWithOrderProducts()
+			}
+
+			this.getView().setModel(this.oCartModel, "OrderProductsData");
+
+		},
+
+		_onRouteMatched : function (oEvent) {
+			var oArgs, oView;
+
+			oArgs = oEvent.getParameter("arguments");
+			oView = this.getView();
+
+            this.sOrderId = oArgs.OrderId;
+
+			this.loadData();
+		},
+
+		FillOrderProductData: function () {
+
+		},
+
+		onInit: function () {
+
+			var oRouter = this.getOwnerComponent().getRouter();
+			oRouter.getRoute("checkout").attachMatched(this._onRouteMatched, this);
+			// this.getView().byId("depositreferencelabel").setVisible(paymentusd);
+			// this.getView().byId("depositreference").setVisible(paymentusd);
+
+			// var UserData = this.getOwnerComponent().getModel("UserData")
+			// console.log(UserData)
+
+			// var TitleCredits = this.getView().byId("_IDGenTitle1")
+
+			// try {
+			// 	var oUser = sap.ushell.Container.getService("UserInfo").getUser().getFullName();
+			// 	//console.log("current user: ","'",oUser.trim(),"'")
+	  
+			//   } catch (error) {
+	  
+			// 	var oUser = "Default User";
+			// 	//console.log("current user: ","'",oUser.trim(),"'")
+				
+
+			//   }
+            
+			//   console.log(UserData.getProperty("/User_Data"))
+			  
+
+			  
+				
+
+			// var aUsers = UserData.getProperty("/User_Data");
+			// for (var i = 0; i < aUsers.length; i++) {
+			// 	if (aUsers[i].name === oUser) {
+			// 		console.log(aUsers[i].name)
+			// 		var fCredits = aUsers[i].credits;
+			// 		break;
+			// 	}
+			// }
+
+		
+			// TitleCredits.setText("Creditos: " + fCredits + " USD" )
+			
+			// var oModel = new JSONModel(
+			// 	{
+			// 		SelectedPayment: "Credits",
+			// 		SelectedDeliveryMethod: "Standard Delivery",
+			// 		DifferentDeliveryAddress: false,
+			// 		CashOnDelivery: {
+			// 			FirstName: "",
+			// 			LastName: "",
+			// 			PhoneNumber: "",
+			// 			Email: ""
+			// 		},
+			// 		InvoiceAddress: {
+			// 			Address: "",
+			// 			City: "",
+			// 			ZipCode: "",
+			// 			Country: "",
+			// 			Note: ""
+			// 		},
+			// 		DeliveryAddress: {
+			// 			Address: "",
+			// 			Country: "",
+			// 			City: "",
+			// 			ZipCode: "",
+			// 			Note: ""
+			// 		},
+			// 		CreditCard: {
+			// 			Name: "",
+			// 			CardNumber: "",
+			// 			SecurityCode: "",
+			// 			Expire: ""
+			// 		}
+			// 	}),
+			// 	oReturnToShopButton = this.byId("returnToShopButton");
+
+			// this.setModel(oModel);
+			
+			
+			// // previously selected entries in wizard
+			// this._oHistory = {
+			// 	prevPaymentSelect: null,
+			// 	prevDiffDeliverySelect: null
+			// };
+
+			// var PaymentData = this.getOwnerComponent().getModel("PaymentData")
+			// this.getView().setModel(PaymentData,"PaymentData")
+
+			// // Assign the model object to the SAPUI5 core
+			// this.setModel(oCore.getMessageManager().getMessageModel(), "message");
+
+			// // switch to single column view for checout process
+			// this.getRouter().getRoute("checkout").attachMatched(function () {
+			// 	this._setLayout("One");
+			// }.bind(this));
+
+			// // set focus to the "Return to Shop" button each time the view is shown to avoid losing
+			// // the focus after changing the layout to one column
+			// this.getView().addEventDelegate({
+			// 	onAfterShow : function () {
+			// 		oReturnToShopButton.focus();
+			// 	}
+			// });
+
+
+			// var oDataBanks = {
+			// 	banks: [
+			// 		{ id: "0102", name: "Banco de Venezuela, S.A.C.A." },
+			// 		{ id: "0104", name: "Venezolano de Crédito" },
+			// 		{ id: "0105", name: "Mercantil" },
+			// 		{ id: "0108", name: "Provincial" },
+			// 		{ id: "0114", name: "Bancaribe" },
+			// 		{ id: "0115", name: "Exterior" },
+			// 		{ id: "0116", name: "Occidental de Descuento" },
+			// 		{ id: "0128", name: "Banco Caroní" },
+			// 		{ id: "0134", name: "Banesco" },
+			// 		{ id: "0138", name: "Banco Plaza" },
+			// 		{ id: "0137", name: "Banco Sofitasa" },
+			// 		{ id: "0151", name: "BFC Banco Fondo Común" },
+			// 		{ id: "0156", name: "100% Banco" },
+			// 		{ id: "0157", name: "Del Sur" },
+			// 		{ id: "0163", name: "Banco del Tesoro" },
+			// 		{ id: "0166", name: "Banco Agrícola de Venezuela" }
+			// 	]
+			// };
+			
+			// var oModelBanks = new sap.ui.model.json.JSONModel(oDataBanks);
+			// this.getView().setModel(oModelBanks, "bankModel");
+
+			// var oDataExt = {
+			// 	ext: [
+			// 		{ id: "0412", name: "0412" },
+			// 		{ id: "0414", name: "0414" },
+			// 		{ id: "0424", name: "0424" },
+			// 		{ id: "0426", name: "0426" }
+					
+			// 	]
+			// };
+			
+			// var oModelExt = new sap.ui.model.json.JSONModel(oDataExt);
+			// this.getView().setModel(oModelExt, "ExtModel");
 		},
 
 		/**
@@ -205,6 +413,230 @@ sap.ui.define([
 		},
 
 		/**
+		 * Show the payment method according wit the user selection
+		 */
+
+		// onCompletePaymentSelection: function() {
+			
+		// 	var oElement = this.byId("paymentTypeStep");
+		// 	var SelectedPaymentItem = this.getView().byId("PType2").getSelectedItem();
+		// 	debugger;
+		// 	// Verifica qué objeto se seleccionó y navega a un paso específico
+		// 	var oWizard = this.byId("shoppingCartWizard"); // Reemplaza con el ID de tu Wizard
+		// 	switch(SelectedPayment) {
+		// 		case "Pago Móvil": 
+		// 			oElement.setNextStep(this.byId("PagoMovilStep"));
+		// 			break;
+		// 		case "Tarjeta Debito Credito": 
+		// 			oWizard.goToStep(this.byId("PagoMovilStep")); break;
+		// 		default: 
+		// 			MessageToast.show(oBundle.getText("Por favor seleccione un Método de pago")); 
+		// 			oWizard.invalidateStep(this.byId("bankAccountStep")); // Invalida el paso para evitar que el usuario avance
+		// 			break;
+		// 	}
+				
+		// },
+		onCompletePaymentSelection: function() {
+			var oTree = this.getView().byId("PType2");
+			var SelectedPaymentItem = oTree.getSelectedItem();
+			var oWizard = this.byId("shoppingCartWizard");
+			
+			if (SelectedPaymentItem) {
+				var oContext = SelectedPaymentItem.getBindingContext("PaymentData");
+				var SelectedPayment = oContext.getProperty("text"); // Obteniendo el texto del método de pago seleccionado
+		
+				switch (SelectedPayment) {
+					case "Pago Móvil":
+						this.byId("bankAccountStep").setNextStep(this.byId("PagoMovilStep"));
+						SelectedPayment = "Pago Movil";
+						break;
+					case "Tarjeta Debito Credito":
+						this.byId("bankAccountStep").setNextStep(this.byId("TarjetaCreditoStep"));
+						SelectedPayment = "Credit Card";
+						break;
+					default:
+						sap.m.MessageToast.show("Por favor seleccione un Método de pago");
+						oWizard.invalidateStep(this.byId("bankAccountStep")); // Invalida el paso para evitar que el usuario avance
+						
+						break;
+				}
+			} else {
+				sap.m.MessageToast.show("Por favor seleccione un Método de pago");
+				oWizard.invalidateStep(this.byId("bankAccountStep")); // Invalida el paso si no se ha seleccionado nada
+			}
+		},
+
+		onCompletePagoMovil: function() {
+			var oView = this.getView();
+			var bIsValid = true;
+			var oWizard = oView.byId("shoppingCartWizard");
+			var textcreditsfinal = this.getView().byId("textcreditsfinal")
+
+		
+			// Validación de selección de banco
+			var oBankSelect = oView.byId("InputBanks");
+			var sSelectedBank = oBankSelect.getSelectedKey();
+			if (!sSelectedBank) {
+				bIsValid = false;
+				oBankSelect.setValueState(sap.ui.core.ValueState.Error);
+				oBankSelect.setValueStateText("Debe seleccionar un banco.");
+			} else {
+				oBankSelect.setValueState(sap.ui.core.ValueState.None);
+			}
+		
+			// Validación del teléfono
+			var oPhoneInput = oView.byId("inputTele");
+			var sPhoneValue = oPhoneInput.getValue();
+			var oPhoneRegex = /^[0-9]{7}$/; // Ajusta el regex según el formato esperado
+			if (!oPhoneRegex.test(sPhoneValue)) {
+				bIsValid = false;
+				oPhoneInput.setValueState(sap.ui.core.ValueState.Error);
+				oPhoneInput.setValueStateText("Debe ingresar un número telefónico válido.");
+			} else {
+				oPhoneInput.setValueState(sap.ui.core.ValueState.None);
+			}
+		
+			// Validación de la cédula
+			var oCedulaInput = oView.byId("inputCed");
+			var sCedulaValue = oCedulaInput.getValue();
+			var oCedulaRegex = /^[VJEG]-\d{8,9}$/; // Ajusta el regex según el formato esperado (e.g., V-12345678)
+			if (!oCedulaRegex.test(sCedulaValue)) {
+				bIsValid = false;
+				oCedulaInput.setValueState(sap.ui.core.ValueState.Error);
+				oCedulaInput.setValueStateText("Debe ingresar una cédula válida.");
+			} else {
+				oCedulaInput.setValueState(sap.ui.core.ValueState.None);
+			}
+		
+			// Si todas las validaciones son exitosas
+			if (bIsValid) {
+				// oWizard.validateStep(this.byId("PagoMovilStep"));
+				// this.getView().byId("submitOrder").setEnabled(true);
+				textcreditsfinal.setText("Se confirmo el pago exitosamente" )
+				this.getView().byId("submitOrder").setEnabled(true);
+				this.byId("PagoMovilStep").setNextStep(this.byId("creditsfinal"));
+				oWizard.validateStep(this.byId("PagoMovilStep"));				// Continúa al siguiente paso o completa el Wizard
+			} else {
+				sap.m.MessageToast.show("Por favor, complete todos los campos correctamente.");
+				// Invalida el paso si hay algún error
+				oWizard.invalidateStep(this.byId("PagoMovilStep"));
+			}
+		},
+
+		onCompleteCreditCard: function() {
+			var oView = this.getView();
+			var bIsValid = true;
+			var oWizard = oView.byId("shoppingCartWizard");
+			var textcreditsfinal = this.getView().byId("textcreditsfinal")
+
+		
+			// // Validación de selección de banco
+			// var oBankSelect = oView.byId("InputBanks");
+			// var sSelectedBank = oBankSelect.getSelectedKey();
+			// if (!sSelectedBank) {
+			// 	bIsValid = false;
+			// 	oBankSelect.setValueState(sap.ui.core.ValueState.Error);
+			// 	oBankSelect.setValueStateText("Debe seleccionar un banco.");
+			// } else {
+			// 	oBankSelect.setValueState(sap.ui.core.ValueState.None);
+			// }
+		
+			// // Validación del teléfono
+			// var oPhoneInput = oView.byId("inputTele");
+			// var sPhoneValue = oPhoneInput.getValue();
+			// var oPhoneRegex = /^[0-9]{7}$/; // Ajusta el regex según el formato esperado
+			// if (!oPhoneRegex.test(sPhoneValue)) {
+			// 	bIsValid = false;
+			// 	oPhoneInput.setValueState(sap.ui.core.ValueState.Error);
+			// 	oPhoneInput.setValueStateText("Debe ingresar un número telefónico válido.");
+			// } else {
+			// 	oPhoneInput.setValueState(sap.ui.core.ValueState.None);
+			// }
+		
+			// // Validación de la cédula
+			// var oCedulaInput = oView.byId("inputCed");
+			// var sCedulaValue = oCedulaInput.getValue();
+			// var oCedulaRegex = /^[VJEG]-\d{8,9}$/; // Ajusta el regex según el formato esperado (e.g., V-12345678)
+			// if (!oCedulaRegex.test(sCedulaValue)) {
+			// 	bIsValid = false;
+			// 	oCedulaInput.setValueState(sap.ui.core.ValueState.Error);
+			// 	oCedulaInput.setValueStateText("Debe ingresar una cédula válida.");
+			// } else {
+			// 	oCedulaInput.setValueState(sap.ui.core.ValueState.None);
+			// }
+		
+			// Si todas las validaciones son exitosas
+			if (bIsValid) {
+				// oWizard.validateStep(this.byId("PagoMovilStep"));
+				// this.getView().byId("submitOrder").setEnabled(true);
+				textcreditsfinal.setText("Se confirmo el pago exitosamente" )
+				this.getView().byId("submitOrder").setEnabled(true);
+				this.byId("TarjetaCreditoStep").setNextStep(this.byId("creditsfinal"));
+				oWizard.validateStep(this.byId("TarjetaCreditoStep"));				// Continúa al siguiente paso o completa el Wizard
+			} else {
+				sap.m.MessageToast.show("Por favor, complete todos los campos correctamente.");
+				// Invalida el paso si hay algún error
+				oWizard.invalidateStep(this.byId("TarjetaCreditoStep"));
+			}
+		},
+
+		onTreeSelectionChange: function (oEvent) {
+			// Obtén el elemento seleccionado
+			var oSelectedItem = oEvent.getParameter("listItem");
+			var oContext = oSelectedItem.getBindingContext("PaymentData");
+			var oSelectedData = oContext.getObject();
+			SelectedPayment = oSelectedData.text;
+			
+
+			
+		},
+
+		fillCartWithOrderProducts: function(){
+			// Buscar productos de la orden específica
+			var oOrdersModel = this.getOwnerComponent().getModel("OrdersData");
+			var aOrders = oOrdersModel.getProperty("/Orders");
+			
+			// Buscar la orden por el OrderId
+			var oOrder = aOrders.find(function(order) {
+				return order.OrderId === this.sOrderId;
+			}.bind(this));
+		
+			if (oOrder) {
+				var aProducts = oOrder.Products; // Los productos de la orden
+				var oCartEntries = {};
+		
+				// Transformar los productos al formato de cartProducts
+				aProducts.forEach(function(product) {
+					oCartEntries[product.product_name] = {
+						Quantity: product.Quantity,
+						availability: product.availability,
+						credit_available: true, // Condición para créditos
+						description: product.description,
+						factory: product.factory,
+						id: product.id,
+						image: product.image,
+						manufacturer: product.manufacturer,
+						number_available: 23, // Valor fijo, ajusta según sea necesario
+						payment_profile: product.payment_profile,
+						price: product.price,
+						product_name: product.product_name,
+						supplier: product.supplier,
+						supplierPhone: product.supplierPhone,
+						unit: "L" 
+					};
+				});
+		
+				// Actualizar el modelo cartProducts con los productos de la orden
+				this.oCartModel = this.getModel("cartProducts");
+				this.oCartModel.setProperty("/cartEntries", oCartEntries);
+				this.oCartModel.refresh(true); // Refrescar el modelo para reflejar los cambios
+			} else {
+				console.error("No se encontró la orden con ID: " + this.sOrderId);
+			}
+
+		},
+
+		/**
 		 * Shows next WizardStep according to user selection
 		 */
 		goToPaymentStep: function () {
@@ -218,9 +650,16 @@ sap.ui.define([
 			var TitleCredits = this.getView().byId("_IDGenTitle1")
 			
 			var textcreditsfinal = this.getView().byId("textcreditsfinal")
-
-			var oCartModel = this.getModel("cartProducts")
-			var oCartEntries = oCartModel.getProperty("/cartEntries");
+			//Llenado de los productos del carrito
+			var oCartModel;
+			var oCartEntries;
+			if (this.sOrderId == 'cart') {
+				oCartModel = this.getModel("cartProducts");
+				oCartEntries = oCartModel.getProperty("/cartEntries");
+			} else {
+				this.fillCartWithOrderProducts()
+			}
+			
 			var allcredit = true
 			var allcash = true
 			var sumtotal = 0
@@ -276,11 +715,12 @@ sap.ui.define([
 				creditsallow = false
 				console.log("la cantidad de creditos no es suficiente")
 			}
+
 			switch (selectedKey) {
 				case "Pay with Credits":
 					paymentusd = false
-					this.getView().byId("depositreferencelabel").setVisible(paymentusd);
-					this.getView().byId("depositreference").setVisible(paymentusd);
+					// this.getView().byId("depositreferencelabel").setVisible(paymentusd);
+					// this.getView().byId("depositreference").setVisible(paymentusd);
 					this.getView().byId("submitOrder").setEnabled(!paymentusd);
 				
 					
@@ -330,8 +770,9 @@ sap.ui.define([
 					break;
 				case " Bank Transfer":
 					paymentusd = true
-					this.getView().byId("depositreferencelabel").setVisible(paymentusd);
-					this.getView().byId("depositreference").setVisible(paymentusd);
+					this.getView().byId("PaymentsType2").setVisible(paymentusd);
+					// this.getView().byId("depositreferencelabel").setVisible(paymentusd);
+					// this.getView().byId("depositreference").setVisible(paymentusd);
 					this.getView().byId("submitOrder").setEnabled(!paymentusd);
 					if ( !allcash){
 
@@ -369,8 +810,9 @@ sap.ui.define([
 				default:
 
 				paymentusd = false
-				this.getView().byId("depositreferencelabel").setVisible(paymentusd);
-				this.getView().byId("depositreference").setVisible(paymentusd);
+				this.getView().byId("PaymentsType2").setVisible(paymentusd);
+				// this.getView().byId("depositreferencelabel").setVisible(paymentusd);
+				// this.getView().byId("depositreference").setVisible(paymentusd);
 				this.getView().byId("submitOrder").setEnabled(!paymentusd);
 				
 					
@@ -456,58 +898,150 @@ sap.ui.define([
 		 * Called from <code>ordersummary</code>
 		 * shows warning message and submits order if confirmed
 		 */
+		// handleWizardSubmit: function () {
+
+		// 	var UserData = this.getOwnerComponent().getModel("UserData")
+
+		// 	try {
+		// 		var oUser = sap.ushell.Container.getService("UserInfo").getUser().getFullName();
+		// 		//console.log("current user: ","'",oUser.trim(),"'")
+		
+		// 		} catch (error) {
+		
+		// 		var oUser = "Default User";
+		// 		//console.log("current user: ","'",oUser.trim(),"'")
+				
+
+		// 		}
+
+		// 	var userindex = 0
+		// 	var sumtotal = 0
+
+		// 	var oCartModel2 = this.getModel("cartProducts")
+		// 	var oCartEntries2 = oCartModel2.getProperty("/cartEntries");
+		
+
+		// 	var aUsers = UserData.getProperty("/User_Data");
+		// 	for (var i = 0; i < aUsers.length; i++) {
+		// 		if (aUsers[i].name === oUser) {
+		// 			userindex = i
+		// 			var fCredits = aUsers[i].credits;
+		// 			break;
+		// 		}
+		// 	}
+
+		// 	for(var key in oCartEntries2) 
+		// 	{
+		// 		sumtotal = sumtotal + (oCartEntries2[key].price * oCartEntries2[key].Quantity)
+			
+		// 	}
+
+
+			
+		// 	if (!paymentusd){
+
+		// 	aUsers[userindex].credits = aUsers[userindex].credits - sumtotal;
+			
+		// 	var TitleCredits = this.getView().byId("_IDGenTitle1")
+		// 	TitleCredits.setText("Creditos: " + aUsers[userindex].credits + " USD" )
+
+		// 	}
+
+		// 	var sText = this.getResourceBundle().getText("checkoutControllerAreYouSureSubmit");
+		// 	this._handleSubmitOrCancel(sText, "confirm", "ordercompleted");
+		// },
+
 		handleWizardSubmit: function () {
 
-			var UserData = this.getOwnerComponent().getModel("UserData")
-
-						try {
-							var oUser = sap.ushell.Container.getService("UserInfo").getUser().getFullName();
-							//console.log("current user: ","'",oUser.trim(),"'")
-					
-							} catch (error) {
-					
-							var oUser = "Default User";
-							//console.log("current user: ","'",oUser.trim(),"'")
-							
-
-							}
-
-						var userindex = 0
-						var sumtotal = 0
-
-						var oCartModel2 = this.getModel("cartProducts")
-						var oCartEntries2 = oCartModel2.getProperty("/cartEntries");
-					
-
-						var aUsers = UserData.getProperty("/User_Data");
-						for (var i = 0; i < aUsers.length; i++) {
-							if (aUsers[i].name === oUser) {
-								userindex = i
-								var fCredits = aUsers[i].credits;
-								break;
-							}
-						}
-
-						for(var key in oCartEntries2) 
-						{
-							sumtotal = sumtotal + (oCartEntries2[key].price * oCartEntries2[key].Quantity)
-							
-
-							}
-
-
-						
-						if (!paymentusd){
-
-						aUsers[userindex].credits = aUsers[userindex].credits - sumtotal;
-						
-						var TitleCredits = this.getView().byId("_IDGenTitle1")
-						TitleCredits.setText("Creditos: " + aUsers[userindex].credits + " USD" )
-
-						}
-
+			var UserData = this.getOwnerComponent().getModel("UserData");
+		
+			var oUser;
+			try {
+				oUser = sap.ushell.Container.getService("UserInfo").getUser().getFullName();
+			} catch (error) {
+				oUser = "Default User";
+			}
+		
+			var userIndex = 0;
+			var sumTotal = 0;
+		
+			var oCartModel2 = this.getModel("cartProducts");
+			var oCartEntries2 = oCartModel2.getProperty("/cartEntries");
+			
+			// Encontrar al usuario actual y obtener sus créditos
+			var aUsers = UserData.getProperty("/User_Data");
+			for (var i = 0; i < aUsers.length; i++) {
+				if (aUsers[i].name === oUser) {
+					userIndex = i;
+					var fCredits = aUsers[i].credits;
+					break;
+				}
+			}
+		
+			// Calcular el total de la compra
+			for (var key in oCartEntries2) {
+				sumTotal += (oCartEntries2[key].price * oCartEntries2[key].Quantity);
+			}
+		
+			// Actualizar créditos si no es un pago en dólares (usando créditos)
+			if (!paymentusd) {
+				aUsers[userIndex].credits = aUsers[userIndex].credits - sumTotal;
+				var TitleCredits = this.getView().byId("_IDGenTitle1");
+				TitleCredits.setText("Creditos: " + aUsers[userIndex].credits + " USD");
+			}
+		
+			// Obtener el siguiente ID en la secuencia
+			var oOrderModel = this.getOwnerComponent().getModel("OrdersData");
+			var oOrders = oOrderModel.getProperty("/Orders") || [];
+			var sNextOrderId = this._getNextOrderId(oOrders); // Método para obtener el siguiente ID
+		
+			// Crear nueva orden
+			var oNewOrder = {
+				OrderId: sNextOrderId, // Siguiente ID en la secuencia
+				Status: "Pendiente Aprobación",
+				CreatedAt: new Date().toLocaleDateString(), // Fecha de creación actual
+				Amount: sumTotal + " VES",
+				ShippingAddress: "Dirección de envío aquí", // Debes obtener la dirección real
+				Items: Object.keys(oCartEntries2).length + " Items",
+				Products: oCartEntries2, // Añadir los productos del carrito
+				events: [
+					{
+						"type": "Created",
+						"status": "Success",
+						"date": new Date().toISOString(), // Fecha actual en formato ISO
+						"properties": oUser, // Usuario actual
+						"Texto": "Orden Creada por " + oUser
+					},
+					{
+						"type": "Approval",
+						"status": "In Process",
+						"date": null,
+						"properties": oUser,
+						"Texto": "Orden Pendiente de Aprobación"
+					}
+				]
+			};
+		
+			// Llamar a la función addOrder de la clase Order.js
+			orderManager.addOrder(oNewOrder, oOrderModel);
+		
 			var sText = this.getResourceBundle().getText("checkoutControllerAreYouSureSubmit");
 			this._handleSubmitOrCancel(sText, "confirm", "ordercompleted");
+		},
+		
+		// Método para obtener el siguiente ID en la secuencia de órdenes
+		_getNextOrderId: function (aOrders) {
+			if (!aOrders.length) {
+				return "50000001"; // Si no hay órdenes previas, empieza en 50000001
+			}
+		
+			var aOrderIds = aOrders.map(function(order) {
+				return parseInt(order.OrderId, 10); // Convertir a número
+			});
+		
+			var iMaxOrderId = Math.max.apply(null, aOrderIds); // Obtener el ID más alto
+		
+			return (iMaxOrderId + 1).toString(); // Incrementar en 1 y devolver como string
 		},
 
 		/**
@@ -533,18 +1067,19 @@ sap.ui.define([
 			this._clearMessages();
 			var sWizardStepId = oEvent.getSource().getId();
 			switch (sWizardStepId) {
-			case this.createId("creditCardStep"):
-				this.checkCreditCardStep();
-				break;
-			case this.createId("cashOnDeliveryStep"):
-				this.checkCashOnDeliveryStep();
-				break;
-			case this.createId("invoiceStep"):
-				this.checkInvoiceStep();
-				break;
-			case this.createId("deliveryAddressStep"):
-				this.checkDeliveryAddressStep();
-				break;
+				case this.createId("creditCardStep"):
+					this.checkCreditCardStep();
+					break;
+				case this.createId("cashOnDeliveryStep"):
+					this.checkCashOnDeliveryStep();
+					break;
+				case this.createId("invoiceStep"):
+					this.checkInvoiceStep();
+					break;
+				case this.createId("deliveryAddressStep"):
+					this.checkDeliveryAddressStep();
+					break;
+				
 			}
 		},
 
@@ -631,10 +1166,16 @@ sap.ui.define([
 		/**
 		 * navigates to "home" for further shopping
 		 */
-		onReturnToShopButtonPress: function () {
+		// onReturnToShopButtonPress: function () {
          
-			this._setLayout("One");
-			this.getRouter().navTo("RouteMain");
+		// 	this._setLayout("One");
+		// 	this.getRouter().navTo("RouteMain");
+		// },
+
+		onReturnToShopButtonPress: function () {
+			this._setLayout("Two"); // Cambiar el diseño
+			sap.ui.core.UIComponent.getRouterFor(this).navTo("Cart");
+
 		},
 
 		// *** the following functions are private "helper" functions ***
@@ -679,11 +1220,9 @@ sap.ui.define([
 					MessageBox.Action.NO],
 				onClose: function (oAction) {
 					if (oAction === MessageBox.Action.YES) {
-
-						
-						
-
 						// resets Wizard
+						
+
 						var oWizard = this.byId("shoppingCartWizard");
 						var oModel = this.getModel();
 						var oCartModel = this.getModel("cartProducts");
@@ -704,7 +1243,7 @@ sap.ui.define([
 						oCartModelData.totalPrice = 0;
 						oCartModel.setData(oCartModelData);
 					
-						this.getRouter().navTo(sRoute);
+						sap.ui.core.UIComponent.getRouterFor(this).navTo(sRoute);
 					}
 				}.bind(this)
 			});

@@ -8,7 +8,7 @@
 		backgroundDesign="Solid"
 		class="sapUiContentPadding">
 		<landmarkInfo>
-			<PageAccessibleLandmarkInfo id="_IDGenPageAccessibleLandmarkInfo1"
+			<PageAccessibleLandmarkInfo id="_IDGenPageAccessibleLandmarkInfo11"
 				rootRole="Region"
 				rootLabel="{i18n>OrderCompleted_rootLabel}"
 				contentRole="Main"
@@ -22,7 +22,7 @@
 			<FormattedText id="_IDGenFormattedText1" htmlText="{i18n>orderCompletedText}"/>
 		</content>
 		<footer>
-			<Bar id="_IDGenBar1">
+			<Bar id="_IDGenBar12">
 				<contentRight>
 					<Button
 						id="returnToShopButton"

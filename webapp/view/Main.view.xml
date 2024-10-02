@@ -1,8 +1,8 @@
-<mvc:View controllerName="employeestore.controller.Main"
+<mvc:View xmlns:core="sap.ui.core" controllerName="employeestore.controller.Main"
     xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
     xmlns="sap.m">
+	<App id="App">
     <Page id="page" >
-
     <customHeader>
 			<Bar id="_IDGenBar1">
 				
@@ -10,6 +10,29 @@
 				<Title id="_IDGenTitle1"
 						level="H2"
 						/>
+						
+
+					<ToggleButton id="GoToPaymentCourts"
+						icon="sap-icon://monitor-payments"
+						pressed="{= ${appView>/layout}.startsWith('OneColumn') }"
+						tooltip="Show Payment Courts"
+						press=".onTogglePaymentCourts">
+					</ToggleButton>
+
+					<ToggleButton id="GoToPaymentProfiles"
+						icon="sap-icon://monitor-payments"
+						pressed="{= ${appView>/layout}.startsWith('OneColumn') }"
+						tooltip="Show Payment Profiles"
+						press=".onTogglePaymentProfiles">
+					</ToggleButton>
+
+					<ToggleButton id="GoToOrders"
+						icon="sap-icon://order-status"
+						pressed="{= ${appView>/layout}.startsWith('OneColumn') }"
+						tooltip="Show Orders"
+						press=".onToggleOrders">
+					</ToggleButton>
+					
 					<ToggleButton id="_IDGenToggleButton1"
 						icon="sap-icon://cart"
 						pressed="{= ${appView>/layout}.startsWith('OneColumn') }"
@@ -55,7 +78,11 @@
                 </VBox>
 				
 				
-				
+				<!-- <core:Icon src="sap-icon://slim-arrow-right" press="onIconPress" visible="{=!${viewModel>/editable}}">
+					<core:customData>
+						<core:CustomData key="ProductId" value="{SelectedOrder>id}" writeToDom="true"/>
+					</core:customData>
+				</core:Icon>  -->
            
             </items>
            
@@ -69,4 +96,5 @@
 
 	</content>
     </Page>
+	</App>
 </mvc:View>

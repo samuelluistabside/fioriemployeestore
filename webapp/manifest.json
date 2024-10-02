@@ -19,7 +19,11 @@
       "users": {
          "uri": "model/UserData.json",
          "type": "JSON"
-      }
+      },
+      "PaymentMethod": {
+				"uri": "model/PaymentMethod.json",
+				"type": "JSON"
+			}
    },
     "crossNavigation": {
       "inbounds": {
@@ -53,7 +57,7 @@
     }
   },
   "sap.ui5": {
-    "flexEnabled": true,
+    "flexEnabled": false,
     "dependencies": {
       "minUI5Version": "1.119.2",
       "libs": {
@@ -81,7 +85,11 @@
       "UsersModel": {
         "type": "sap.ui.model.json.JSONModel",
         "dataSource": "users"
-     }
+     },
+     "PaymentMethod": {
+        "type": "sap.ui.model.json.JSONModel",
+        "dataSource": "PaymentMethod"
+      }
     },
     "resources": {
       "css": [
@@ -96,7 +104,7 @@
         "type": "View",
         "viewType": "XML",
         "controlId": "layout",
-        "async": true,
+        
         "controlAggregation": "midColumnPages",
         "viewPath": "employeestore.view",
         "clearControlAggregation": false,
@@ -109,13 +117,29 @@
       "routes": [
         {
           "name": "RouteMain",
-          "pattern": ":?query:",
+          "pattern": "",
           "target": [
             "TargetMain"
           ]
         },
         {
-          "pattern": "checkout",
+          "pattern": "OrderDetail/{orderId}",
+          "name": "OrderDetail",
+          "target": "OrderDetail"
+        },
+
+        {
+          "pattern": "ProductDetail/{ProductId}",
+          "name": "ProductDetail",
+          "target": "ProductDetail"
+        },
+        {
+          "pattern": "PaymentProfileDetail/{mode},{PaymentProfileId}",
+          "name": "PaymentProfileDetail",
+          "target": "PaymentProfileDetail"
+        },
+        {
+          "pattern": "checkout/{OrderId}",
           "name": "checkout",
           "target": "checkout"
         },
@@ -130,55 +154,134 @@
           "pattern": "ordercompleted",
           "name": "ordercompleted",
           "target": "ordercompleted"
+        },
+        {
+          "pattern": "Orders",
+          "name": "Orders",
+          "target": "Orders"
+        },
+        {
+          "pattern": "PaymentProfiles",
+          "name": "PaymentProfiles",
+          "target": "PaymentProfiles"
+        },
+        {
+          "pattern": "PaymentCourts",
+          "name": "PaymentCourts",
+          "target": "PaymentCourts"
         }
       ],
       "targets": {
         "TargetMain": {
+          "clearControlAggregation": true,
           "viewType": "XML",
-          "transition": "slide",
+          "controlId": "layout",
+          "transition":"slide",
           "controlAggregation": "beginColumnPages",
           "viewId": "Main",
           "viewName": "Main"
         },
         "checkout": {
-          "name": "Checkout",
-          "controlAggregation": "beginColumnPages",
+          
           "level": 1,
           "title": "{i18n>checkoutTitle}",
           "id": "Checkout",
           "viewName": "Checkout",
+          "controlId": "app",
+          "controlAggregation":"pages",
+
           "viewType": "XML"
         },
         "ordercompleted": {
-          "name": "OrderCompleted",
-          "controlAggregation": "beginColumnPages",
-          "level": 2,
+          "controlId": "app",
+          "controlAggregation":"pages",
           "id": "Ordercompleted",
           "title": "{i18n>orderCompletedTitle}",
           "viewType": "XML",
           "viewName": "OrderCompleted"
         },
+        "Orders":{
+          "clearControlAggregation": true,
+          "viewID": "Orders",
+          "viewName": "Orders",
+          "transition":"slide",
+          "level":1,
+          "id": "Orders",
+          "viewType": "XML",
+          "title": "i18n>OrderViewTitle" 
+        },
+
+        "PaymentProfiles":{
+          "clearControlAggregation": true,
+          "viewID": "PaymentProfiles",
+          "viewName": "PaymentProfiles",
+          "controlId" : "app",
+          "controlAggregation":"pages",
+          "transition":"slide",
+          "level":1,
+          "id": "PaymentProfiles",
+          "viewType": "XML",
+          "title": "Perfiles de Pago" 
+        },
+
+        "PaymentProfileDetail":{
+            "viewId": "PaymentProfileDetail",
+            "viewName": "PaymentProfileDetail",
+            "controlId" : "app",
+            "controlAggregation":"pages",
+            "transition":"slide",
+            "viewType": "XML",
+            "title": "Detalle de Perfil de Pago"
+        },
+
+        "OrderDetail":{
+          "viewId": "OrderDetail",
+          "viewName": "OrderDetail",
+          "controlId" : "app",
+          "controlAggregation":"pages",
+          "transition":"slide",
+          "level": 1,
+          "viewType": "XML",
+          "clearControlAggregation": true,
+          "title": "i18n>OrderDetailViewTitle"
+
+        },
+
+        "ProductDetail": {
+            "viewId": "ProductDetail",
+            "viewName": "ProductDetail",
+            "controlId" : "app",
+            "controlAggregation":"pages",
+            "transition":"slide",
+            "viewType": "XML",
+            "title": "i18n>OrderDetailViewTitle"
+        },
+
         "Cart": {
-          "name": "Cart",
+          
           "viewId": "Cart",
-          "controlAggregation": "midColumnPages",
+          "clearControlAggregation": true,
           "id": "Cart",
           "viewName": "Cart",
-          "viewType": "XML",
-          "title": {
-            "parts": [
-              "i18n>tabTitle",
-              "i18n>tableTitleCart"
-            ]
-          }
+          "viewType": "XML"
+          
+        },
+        "PaymentCourts": {
+          
+          "level": 1,
+          "title": "Cortes de Pago de Productos",
+          "id": "PaymentCourts",
+          "viewName": "PaymentCourts",
+          "controlId": "app",
+          "controlAggregation":"pages",
+          "viewType": "XML"
         }
       }
     },
     "rootView": {
       "viewName": "employeestore.view.App",
       "type": "XML",
-      "async": true,
-      "id": "App"
+      "async": true
     }
   },
   "sap.cloud": {

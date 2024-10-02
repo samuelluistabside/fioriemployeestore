@@ -109,7 +109,38 @@ sap.ui.define([
 				bCollection2Filled = !!(oCollection2 && Object.keys(oCollection2).length);
 
 			return bCollection1Filled || bCollection2Filled;
+		},
+
+		statusColor: function(sStatus) {
+            switch(sStatus) {
+                case "Pendiente Aprobación":
+                    return "sapUiWarningText"; // Amarillo o similar
+                case "Aprobada":
+                    return "sapUiPositiveText"; // Verde
+                case "Pendiente para retiro":
+                    return "sapUiCriticalText"; // Naranja
+                default:
+                    return "sapUiNeutralText"; // Por defecto, gris
+            }
+        },
+
+		weightState :  function (fValue) {
+			try {
+				fValue = parseFloat(fValue);
+				if (fValue < 0) {
+					return "None";
+				} else if (fValue < 1000) {
+					return "Success";
+				} else if (fValue < 2000) {
+					return "Warning";
+				} else {
+					return "Error";
+				}
+			} catch (err) {
+				return "None";
+			}
 		}
+
 	};
 
 	return formatter;

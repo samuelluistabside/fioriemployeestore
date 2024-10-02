@@ -32,7 +32,7 @@ sap.ui.define(
             delay : 0,
             layout : "OneColumn",
             smallScreenMode : true
-        });
+        } );
 
         
 
@@ -67,6 +67,9 @@ sap.ui.define(
   
         // apply content density mode to root view
         //this.getView().addStyleClass(this.getOwnerComponent().getContentDensityClass());
+
+          var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+          oRouter.initialize();
         }
 
         

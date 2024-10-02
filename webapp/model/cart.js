@@ -80,6 +80,9 @@ sap.ui.define([
 			oCartModel.setProperty("/cartEntries", Object.assign({}, oCollectionEntries));
 			oCartModel.refresh(true);
 			MessageToast.show(oBundle.getText("Producto agregado al carrito", [oProductToBeAdded.Name] ));
-		}
+		},
+
+		
+
 	};
 });

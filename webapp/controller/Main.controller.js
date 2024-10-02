@@ -153,6 +153,27 @@ sap.ui.define([
 			this.getRouter().navTo(bPressed ? "RouteMain" : "Cart");
 		},
 
+        onToggleOrders: function (oEvent) {
+			var bPressed = oEvent.getParameter("pressed");
+
+			this._setLayout(bPressed ? "One" : "Two");
+			this.getRouter().navTo(bPressed ? "RouteMain" : "Orders");
+		},
+
+        onTogglePaymentProfiles: function (oEvent) {
+			var bPressed = oEvent.getParameter("pressed");
+
+			// this._setLayout(bPressed ? "One" : "Two");
+			this.getRouter().navTo(bPressed ? "RouteMain" : "PaymentProfiles");
+		},
+
+        onTogglePaymentCourts: function (oEvent) {
+			var bPressed = oEvent.getParameter("pressed");
+
+			// this._setLayout(bPressed ? "One" : "Two");
+			this.getRouter().navTo(bPressed ? "RouteMain" : "PaymentCourts");
+		},
+
         /**
 		 * Event handler to determine which button was clicked
 		 * @param {sap.ui.base.Event} oEvent the button press event

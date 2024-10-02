@@ -1,39 +1,80 @@
 {
     "Products": [
         {
+            "id": "P001",
             "product_name": "Santa Teresa 1796",
+            "description":"Santa Teresa 1796, es un ron Súper Premium, audaz y elegante, hecho con una mezcla de rones desde 4 y hasta 35 años de envejecimiento en barricas de roble, a través del complejo proceso de añejamiento de Solera. El resultado es un ron suave, seco y balanceado que evoluciona en cada sorbo. Para realzar sus sabores, disfrútalo en vaso corto, con una roca de hielo, agua gasificada y un twist de naranja.",
+            "unit":"L",
             "price": 26.50,
             "number_available": 23,
             "credit_available": true,
-            "image": "/santa_teresa_1796.png"
+            "payment_profile": "VENTA_CREDITO_CAJA",
+            "image": "/santa_teresa_1796.png",
+            "manufacturer": "Ron Santa Teresa",
+            "factory": "Caracas VE",
+            "supplier": "Robotech",
+            "availability":"Hay disponibilidad",
+            "supplierPhone":"+584242150570"
         },
         {
+            "id": "P002",
             "product_name": "Santa Teresa Linaje",
+            "description": "Un ron Premium que nace de la mezcla de rones añejos de primera calidad desde 3 y hasta 14 años de envejecimiento. Es un ron de cuerpo robusto y complejo, de aroma dulce y almendrado, con un sabor que presenta notas a chocolate amargo y frutos secos. Ideal para disfrutar con soda o jugos refrescantes en ocasiones especiales.",
             "price": 14.50,
             "number_available": 7,
             "credit_available": false,
-            "image": "/ron-linaje-puiuko7zr0h91dhqhudqzxmsmrmtr2cl3ourcg9mgg.png"
+            "image": "/ron-linaje-puiuko7zr0h91dhqhudqzxmsmrmtr2cl3ourcg9mgg.png",
+            "manufacturer": "Ron Santa Teresa",
+            "factory": "Caracas VE",
+            "supplier": "Robotech",
+            "availability":"Hay disponibilidad",
+            "supplierPhone":"+584242150570"
+
         },
         {
+            "id": "P003",
             "product_name": "Santa Teresa Gran Reserva",
+            "description":"Un ron envejecido hasta 5 años en barricas de roble. Suave y ligero, pero con carácter; firme y terso al paladar. De color ámbar dorado, con un aroma y sabor afrutado que evoca la caña dulce y se fusiona con notas suaves a madera. Por su carácter y versatilidad, es ideal para disfrutar con cola negra o cualquier tipo de cóctel.",
             "price": 8.00,
             "number_available": 41,
             "credit_available": true,
-            "image": "/ron-santa-teresa-gran-reserva.png"
+            "image": "/ron-santa-teresa-gran-reserva.png",
+            "manufacturer": "Ron Santa Teresa",
+            "factory": "Caracas VE",
+            "supplier": "Robotech",
+            "availability":"Hay disponibilidad",
+            "supplierPhone":"+584242150570"
+
         },
         {
+            "id": "P004",
             "product_name": "Arakú",
+            "description":"Licor mestizo de ron y café, Arakú® es el resultado de combinar los añejos de Santa Teresa, envejecidos en barricas de roble blanco americano, con suaves toques del café cremoso con una refinada y aromática infusión de café.",
             "price": 13.00,
             "number_available": 0,
             "credit_available": false,
-            "image": "/araku_ron_y_caf_.png"
+            "image": "/araku_ron_y_caf_.png",
+            "manufacturer": "Ron Santa Teresa",
+            "factory": "Caracas VE",
+            "supplier": "Robotech",
+            "availability":"Hay disponibilidad",
+            "supplierPhone":"+584242150570"
+
         },
         {
+            "id": "P005",
             "product_name": "Rhum Orange Liqueur",
+            "description":"Es un licor dulce a base de ron, resultado de la perfecta fusión de los más finos añejos, envejecidos en barricas de roble, y una exquisita y delicada maceración de cáscaras de naranja. Una mágica receta manifiesto de tradición y experiencia que le confieren a este fino licor, un elixir de sabores refrescantes capaces de recrear y complacer al más exigente paladar.",
             "price": 14.50,
             "number_available": 29,
             "credit_available": false,
-            "image": "/Rhum-Orange.png"
+            "image": "/Rhum-Orange.png",
+            "manufacturer": "Ron Santa Teresa",
+            "factory": "Caracas VE",
+            "supplier": "Robotech",
+            "availability":"Hay disponibilidad",
+            "supplierPhone":"+584242150570"
+
         }
     ]
 }
