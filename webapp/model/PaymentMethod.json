@@ -1,0 +1,13 @@
+{
+    "Payment":[
+        {
+            "text": "Pago Móvil",
+            "image": "/PagoMovil.png"
+            
+        },
+        {
+            "text": "Tarjeta Debito Credito",
+            "image": "/Visa Logo.png"
+        }
+    ]
+}

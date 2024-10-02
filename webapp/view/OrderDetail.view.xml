@@ -1,0 +1,183 @@
+<mvc:View
+    controllerName="employeestore.controller.OrderDetail"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:common="sap.suite.ui.commons"
+    displayBlock="true"
+    height="100%">
+    <!-- <FlexBox direction="Column" fitContainer="true" height="30%"> -->
+
+    <ObjectHeader
+        responsive="true"
+        binding="{/SelectedOrder}"
+        title="Orden 50000083"
+        number="1600.50"
+        numberUnit="VES"
+        numberState="Success"
+        backgroundDesign="Translucent">
+        <attributes>
+            <ObjectAttribute
+                title="Dirección de Envio"
+                text="Caracas, Los Simbolos, Edf La Trinidad"/>
+            <ObjectAttribute
+                title="Cantidad de Productos"
+                text="35"/>
+        </attributes>
+        <statuses>
+            <ObjectStatus
+                title="Aprobado"
+                text="Pending"
+                state="Warning"/>
+        </statuses>
+    </ObjectHeader>
+    <!-- </FlexBox> -->
+    <SplitContainer initialDetail="status" initialMaster="products">
+        <!-- Sección Izquierda: Log de Eventos de la Orden -->
+        <masterPages> 
+            <common:Timeline
+			id="idTimeline"
+			enableDoubleSided="false"
+			growingThreshold="0"
+			filterTitle="Job Title"
+			content="{SelectedOrder>/events}">
+            <common:content>
+                <common:TimelineItem
+                        id="idTemplateItem"
+                        dateTime="{SelectedOrder>date}"
+                        title="{SelectedOrder>Texto}"
+                        status="{SelectedOrder>status}"
+                        userNameClickable="false"
+                        userNameClicked="onUserNameClick"
+                        icon="sap-icon://accelerated">
+                </common:TimelineItem>
+            </common:content>
+        </common:Timeline>
+            <!-- <common:Timeline
+                id="idTimeline"
+                enableDoubleSided="true"
+                growingThreshold="0"
+                content="{SelectedOrder/events}">
+                <common:content>
+                    <common:TimelineItem
+                            id="idTemplateItem"
+                            dateTime="{date}"
+                            title="Aprobado por"
+                            userNameClickable="false"
+                            userNameClicked="onUserNameClick"
+                            text="Se aprobo la venta del producto"
+                            icon="sap-icon://accelerated">
+                    </common:TimelineItem>
+                </common:content>
+            </common:Timeline> -->
+
+            <!-- <List  items="{SelectedOrder/events}" inset="false" headerText="Status de la Orden">
+                <CustomListItem>
+                    <VBox>
+                        <Text text="{SelectedOrder>type}" />
+                        <Text text="{SelectedOrder>date}" />
+                        <Text text="{SelectedOrder>status}" />
+                        <HBox>
+                            <Text text="{SelectedOrder>properties/CreatedBy}" visible="{= ${SelectedOrder>type} === 'Created'}"/>
+                            <Text text="{SelectedOrder>properties/AproveBy}" visible="{= ${SelectedOrder>type} === 'Approval'}"/>
+                            <Text text="{SelectedOrder>properties/Sucursal}" visible="{= ${SelectedOrder>type} === 'Withdrawl'}"/>
+                        </HBox>
+                    </VBox>
+                </CustomListItem>
+            </List> -->
+        </masterPages>
+        <!-- Sección Derecha: Detalle de la Orden -->
+        <detailPages>
+            <Page
+				id="detailDetail" >
+                <VBox>
+                <Table id="TablaProductos" items="{SelectedOrder>/Products}" inset="false">
+                    <headerToolbar>
+                        <OverflowToolbar>
+                            <Title text="Products" level="H2" />
+                            <ToolbarSpacer />
+                            <Button id="_editButton" text="Edit" type="Transparent" press="onEdit" />
+                            <Button id="_saveButton" text="Save" type="Transparent" press="onSave" visible="false" />
+                            <Button id="_cancelButton" text="Cancel" type="Transparent" press="onCancel" visible="false" />
+                            <Button
+                                id="proceedButton"
+                                type="Accept"
+                                text="Pagar"
+                                enabled="true"
+                                visible="true"
+                                press=".onPaymentButton"/>
+                        </OverflowToolbar>
+                    </headerToolbar>
+                    <columns>
+                        <Column width="15%">
+                            <Text text="Imagen"></Text>
+                        </Column>
+                        <Column width="40%">
+                            <Text text="Detalle Producto"/>
+                        </Column>
+                        <Column width="10%" hAlign="Center">
+                            <Text text="Precio Unitario"/>
+                        </Column>
+                        <Column width="15%" hAlign="Center">
+                            <Text text="Unidades"/>
+                        </Column>
+                        <Column width="15%" hAlign="Center">
+                            <Text text="Monto"/>
+                        </Column>
+                        <Column width="5%" hAlign="Center">
+                            <!-- Esta columna es más pequeña ya que solo contiene el ícono -->
+                        </Column>
+                    </columns>
+                    <!-- Definiendo el template aquí -->
+                    <items>
+                        <ColumnListItem vAlign="Middle">
+                            <cells>
+                                <!-- Imagen del Producto -->
+                                <Image src="{imageModel>/path}{SelectedOrder>image}" densityAware="false" class="productimage" />
+                                
+                                <!-- Detalle del Producto -->
+                                <VBox>
+                                    <Text text="Nombre de Producto" class="sapMTitle"/>
+                                    <Text text="{SelectedOrder>product_name}" class="sapMText"/>
+                                    <Text text="Descripción" class="sapMTitle"/>
+                                    <Text text="{SelectedOrder>description}" class="sapMText" maxLines="4" />
+                                    <Text text="Presentación" class="sapMTitle"/>
+                                    <Text text="{SelectedOrder>presentation}" class="sapMText" />
+                                </VBox>
+
+                                <!-- Precio Unitario -->
+                                <ObjectNumber number="{SelectedOrder>price}" unit="{SelectedOrder>CurrencyCode}"/>
+
+                                <!-- Unidades -->
+                                <Input id='QuantityInput' description="und" type="Number" value="{SelectedOrder>Quantity}" editable="{viewModel>/editable}"/>
+
+                                <!-- Monto Total -->
+                                <ObjectNumber number="{= ${SelectedOrder>price} * ${SelectedOrder>Quantity}}" unit="{SelectedOrder>CurrencyCode}"/>
+                                
+                                <!-- Icono para navegar a otra vista -->
+                                <FlexBox>
+                                    <core:Icon src="sap-icon://slim-arrow-right" press="onIconPress" visible="{=!${viewModel>/editable}}">
+                                        <core:customData>
+                                            <core:CustomData key="ProductId" value="{SelectedOrder>id}" writeToDom="true"/>
+                                        </core:customData>
+                                    </core:Icon> 
+                                    <core:Icon src="sap-icon://slim-arrow-right" press="onDelete" visible="{viewModel>/editable}">
+                                        <core:customData>
+                                            <core:CustomData key="ProductId" value="{SelectedOrder>id}" writeToDom="true"/>
+                                        </core:customData>
+                                    </core:Icon> 
+
+                                </FlexBox>
+                                
+
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                    
+                </Table>
+                </VBox >
+            </Page>
+
+        </detailPages>
+    </SplitContainer>
+</mvc:View>

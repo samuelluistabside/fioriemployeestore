@@ -1,0 +1,80 @@
+<mvc:View
+	controllerName="employeestore.controller.PaymentProfiles"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+
+	height="100%">
+	<Page id="ContentPagePaymentProfile" showHeader="false">
+		
+		<Table id="idPPTable" items="{/PaymentProfile}">
+            <headerToolbar>
+                <OverflowToolbar>
+					<Title text="Perfiles de Pago" level="H2"/>
+					<ToolbarSpacer />
+                    <Button
+						id="addButton"
+						tooltip="Crear"
+						icon="sap-icon://create"
+						press="handleAddButtonPressed"/>
+					<!-- <Button
+						id="sortButton"
+						tooltip="Sort"
+						icon="sap-icon://sort"
+						press="handleSortButtonPressed"/>
+					<Button
+						id="filterButton"
+						tooltip="Filter"
+						icon="sap-icon://filter"
+						press="handleFilterButtonPressed"/>
+					<Button
+						id="groupButton"
+						tooltip="Group"
+						icon="sap-icon://group-2"
+						press="handleGroupButtonPressed"/>
+					<ToggleButton id="contextMenuToggleButton"
+						icon="sap-icon://menu"
+						tooltip="Enable Custom Context Menu"
+						press="onToggleContextMenu" /> -->
+				</OverflowToolbar>
+            </headerToolbar>
+            <columns>
+                <Column id="idColumn" width="12em">
+                    <Text text="Id" />
+                </Column>
+                <Column id="NameColumn" width="12em">
+                    <Text text="Nombre" />
+                </Column>
+                <Column id="DescripcionColumn" width="12em">
+                    <Text text="Descripción" />
+                </Column>
+                <Column id="Column" width="4em">
+                    <!-- <Text text="Monto" /> -->
+                </Column>
+            </columns>
+            <items>
+                <ColumnListItem vAlign="Middle">
+                    <cells>
+                        <!-- Enlace para Orden de Compra -->
+                        <Link text="{ID}" press="onProfileLinkPress"/>
+                        
+                        <!-- Texto con color según el status -->
+                        <Text text="{name}" class="{path: 'Status', formatter: '.formatter.statusColor'}"/>
+                        
+                        <!-- Texto para la fecha -->
+                        <Text text="{description}" />
+                        <!-- Icono para navegar a otra vista -->
+                        <FlexBox>
+                            <core:Icon src="sap-icon://slim-arrow-right" press="onIconPress" >
+                                <core:customData>
+                                    <core:CustomData key="PaymentProfileID" value="{ID}" writeToDom="true"/>
+                                </core:customData>
+                            </core:Icon> 
+
+                        </FlexBox>
+                    </cells>
+                </ColumnListItem>
+            </items>
+        </Table>
+	</Page>
+</mvc:View>

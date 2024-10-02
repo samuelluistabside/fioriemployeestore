@@ -1,0 +1,148 @@
+<mvc:View 
+    controllerName="employeestore.controller.ProductDetail"
+    xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.uxap"
+    xmlns:core="sap.ui.core"
+	xmlns:m="sap.m"
+	xmlns:f="sap.f"
+	xmlns:goals="employeestore.view.fragments.goals"
+	height="100%">
+	<ObjectPageLayout id="ObjectPageLayout" upperCaseAnchorBar="false">
+		<headerTitle>
+			<ObjectPageHeader
+				objectTitle="{SelectedProduct>/product_name}"
+				objectSubtitle="{SelectedProduct>/id}"
+				
+				objectImageDensityAware="false"
+				isObjectIconAlwaysVisible="true"
+				showPlaceholder="false">
+				
+				<actions>
+					<m:OverflowToolbarButton icon="sap-icon://edit" text="edit header" type="Emphasized" tooltip="edit">
+						<m:layoutData>
+							<m:OverflowToolbarLayoutData priority="NeverOverflow"/>
+						</m:layoutData>
+					</m:OverflowToolbarButton>
+				</actions>
+			</ObjectPageHeader>
+		</headerTitle>
+
+		<headerContent>
+			<m:Panel >
+				<m:FlexBox height="100px" alignItems="Start" justifyContent="Start">
+					<!-- Manufacturer and Factory displayed side by side -->
+					<m:FlexBox direction="Column" > 
+						<m:Image 
+						src="{imageModel>/path}{SelectedProduct>/image}" 
+						densityAware="false" 
+						class="sapUiTinyMarginEnd"
+						width="100px" 
+						height="100px" />
+					</m:FlexBox >
+					<m:FlexBox direction="Column">
+						<m:Text text="Manufacturer: {SelectedProduct>/manufacturer}" class="sapUiSmallMarginEnd" />
+						<m:Text text="Factory: {SelectedProduct>/factory}" class="sapUiSmallMarginEnd" />
+						<m:Text text="Supplier: "/>
+						<m:Link text="{SelectedProduct>/supplier}" href="tel:{SelectedProduct>/supplierPhone}"  />
+					</m:FlexBox >
+					<!-- Disponibilidad displayed side by side with other information -->
+					<m:FlexBox direction="Column">
+						<m:Text text="Disponibilidad: " />
+						<m:ObjectStatus text="{SelectedProduct>/availability}" state="Success" class="boldAndLarge" />
+					</m:FlexBox>
+				</m:FlexBox>
+			</m:Panel>
+
+			<m:Panel>
+				<m:FlexBox height="100px" alignItems="Center" justifyContent="Start" class="sapUiResponsiveMargin">
+					<m:FlexBox direction="Column" class="sapUiSmallMarginEnd">
+						<m:Text text="Precio unitario:"/>
+						<m:ObjectNumber number="{SelectedOrderProduct>/price}" unit="USD"/>
+					</m:FlexBox>
+					<m:FlexBox direction="Column" class="sapUiSmallMarginEnd">
+						<m:Text text="Cantidad:"/>
+						<m:Input value="{SelectedOrderProduct>/Quantity}" editable="true"/>
+					</m:FlexBox>
+					<m:FlexBox direction="Column" class="sapUiSmallMarginEnd">
+						<m:Text text="Total:"/>
+						<m:ObjectNumber number="{= ${SelectedOrderProduct>/price} * ${SelectedOrderProduct>/Quantity}}" unit="USD"/>
+					</m:FlexBox>
+				</m:FlexBox>
+				
+			</m:Panel>
+			
+			 
+		</headerContent>
+
+		<sections>
+			<ObjectPageSection titleUppercase="false" id="goalsSection" title="Descripción">
+				
+				<subSections>
+					<ObjectPageSubSection id="goalsSectionSS1">
+						<forms:SimpleForm editable="false" layout="ColumnLayout" xmlns:forms="sap.ui.layout.form" xmlns="sap.m">
+                            <Text text="{SelectedOrderProduct>/description}"/>
+                        </forms:SimpleForm>
+					</ObjectPageSubSection>
+				</subSections>
+			</ObjectPageSection>
+
+			<ObjectPageSection titleUppercase="false" id="AdicionalSection" title="Información Adicional">
+				
+				<subSections>
+					<ObjectPageSubSection id="AdicionalSectionSS1">
+						<forms:SimpleForm editable="false" layout="ColumnLayout" xmlns:forms="sap.ui.layout.form" xmlns="sap.m">
+							
+                            <Label text="Presentación" />
+                            <Text text="0.75 L"/>
+        
+                            <Label text="Peso" />
+                            <Text text="2.4 KG"/>
+        
+                            <Label text="Unidades" />
+                            <Text text="-"/>
+
+							<Label text="Categoria(s)" />
+                            <Text text="Rones,Botellas"/>	
+                        </forms:SimpleForm>
+						
+					</ObjectPageSubSection>
+				</subSections>
+			</ObjectPageSection>
+
+			<ObjectPageSection titleUppercase="false" id="PerfilSection" title="Perfil de Pago">
+				
+				<subSections>
+					<ObjectPageSubSection id="PerfilSectionSS1">
+						<forms:SimpleForm editable="false" layout="ColumnLayout" xmlns:forms="sap.ui.layout.form" xmlns="sap.m">
+							
+							<m:ComboBox class="sapUiSmallMarginBottom"
+								enabled="true"
+								id="idComboBoxSuccess"
+								items="{
+									path: 'PaymentProfileData>/PaymentProfile',
+									sorter: { path: 'ID' }
+								}"
+								value="{SelectedOrderProduct>/payment_profile}">
+								<core:ListItem key="{PaymentProfileData>ID}" text="{PaymentProfileData>ID}"/>
+							</m:ComboBox>
+							<Label text="Nombre" />
+                            <Text text="{SelectedPaymentProfile>/name}"/>
+
+							<Label text="Descripción" />
+                            <Text text="{SelectedPaymentProfile>/description}"/>
+
+							<Button tooltip="Ver detalles"  icon="sap-icon://display" text="Ver mas detalles" press=".navToPaymentProfile" enabled="{= {SelectedPaymentProfile>/ID} ? true : false}" />
+
+                        </forms:SimpleForm>
+						
+					</ObjectPageSubSection> 
+
+				
+					
+				</subSections>
+			</ObjectPageSection>
+
+		</sections>
+
+	</ObjectPageLayout>
+</mvc:View>

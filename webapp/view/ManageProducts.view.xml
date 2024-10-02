@@ -1,0 +1,72 @@
+<mvc:View xmlns:core="sap.ui.core" controllerName="employeestore.controller.Main"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m">
+    <Page id="pageMonitorProducts" >
+    <customHeader>
+			<Bar id="_IDGenBar1">
+				
+				<contentRight>
+				<Title id="_IDGenTitle1"
+						level="H2"
+						/>
+						
+					
+				</contentRight>
+			</Bar>
+		</customHeader>
+        
+	
+
+	<content>
+
+		<List id="_IDGenList1"
+		headerText="Catalogo de Productos"
+		items="{ProductsData>/Products}" >
+		<CustomListItem id="_IDGenCustomListItem1" class="customListItem">
+        <FlexBox id="_IDGenFlexBox1" alignItems="Center">
+            <items>
+            
+			<Image id="_IDGenImage1" src="{imageModel>/path}{ProductsData>image}" densityAware="false" class="productimage" />
+           
+		
+			     <VBox id="_IDGenVBox1" class="centerbox">
+                    <Text id="_IDGenObjectHeader1" text="{ProductsData>product_name}" class="object-header-title" />
+                      <ObjectAttribute class="credit_available" id="_IDGenObjectAttribute2" text="{path: 'ProductsData>credit_available', formatter: '.formatter.formatAvailabilitycredit'}" />
+                </VBox>
+
+			
+
+                
+				<VBox id="_IDGenVBox2" class="vboxrigth">
+				<ObjectNumber id="_IDGenObjectNumber1"
+                        number="{
+                            parts:[{path:'ProductsData>price'}],
+                            type: 'sap.ui.model.type.Currency',
+                            formatOptions: {showMeasure: false}
+                        }"
+                        unit="USD"
+                    />
+                <ObjectAttribute class="availability" id="_IDGenObjectAttribute1" text="{path: 'ProductsData>number_available', formatter: '.formatter.formatAvailability'}" />
+                 <Button tooltip="Add To Cart" id="_IDGenButton1" icon="sap-icon://cart-3" text="Agregar al Carrito" press=".onAddToCart" enabled="{= ${ProductsData>number_available} > 0}" />
+                </VBox>
+				
+				
+				<!-- <core:Icon src="sap-icon://slim-arrow-right" press="onIconPress" visible="{=!${viewModel>/editable}}">
+					<core:customData>
+						<core:CustomData key="ProductId" value="{SelectedOrder>id}" writeToDom="true"/>
+					</core:customData>
+				</core:Icon>  -->
+           
+            </items>
+           
+        </FlexBox>
+    </CustomListItem>
+		</List>
+
+
+
+
+
+	</content>
+    </Page>
+</mvc:View>

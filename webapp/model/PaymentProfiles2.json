@@ -1,0 +1,37 @@
+{
+    "PaymentProfile": [
+        {
+            "ID": "VENTA_CREDITO_CAJA",
+            "name": "Venta solo creditos para Cajas",
+            "description": "Venta para cajas de botellas, no se aceptan pago en divisas, solo créditos.\n5 unidades mensual por cliente ",
+            "paymentWCredits": true,
+            "paymentWMoney": false,
+            "CourtType": [
+                {
+                    "CourtTypeID": "MENSUAL_EMPLEADOS",
+                    "descripcion": "Corte para empleados",
+                    "maxQuantity" : 5
+                },
+                {
+                    "CourtTypeID": "ANUAL_ALTOSCARGOS",
+                    "descripcion": "Corte anual para altos cargos",
+                    "maxQuantity" : 80
+                }
+            ]
+        },
+        {
+            "ID": "VENTA_BOTELLAS",
+            "name": "Venta estandar de Botellas",
+            "description": "Perfil de venta estandar de botellas. Acepta créditos y divisas.\n20 unidades mensual por cliente",
+            "paymentWCredits": true,
+            "paymentWMoney": true,
+            "CourtType": [
+                {
+                    "CourtTypeID": "ANUAL_ALTOSCARGOS",
+                    "descripcion": "Corte anual para altos cargos",
+                    "maxQuantity" : 80
+                }
+            ]
+        }
+    ]
+}

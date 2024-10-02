@@ -1,0 +1,270 @@
+<mvc:View 
+    controllerName="employeestore.controller.PaymentProfileDetail"
+	xmlns:core="sap.ui.core"
+    xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.uxap"
+	xmlns:m="sap.m"
+	xmlns:f="sap.f"
+	xmlns:fo="sap.ui.layout.form"
+	height="100%">
+	<ObjectPageLayout  upperCaseAnchorBar="false">
+		<headerTitle>
+			<ObjectPageHeader
+				objectTitle="{= ${viewModel>/mode} !== 'create' ? ${SelectedPaymentProfile>/ID} : 'Crear Perfil de Pago' }"
+				objectSubtitle="{SelectedPaymentProfile>/name}"
+				
+				objectImageDensityAware="false"
+				isObjectIconAlwaysVisible="true"
+				showPlaceholder="false">
+				
+				<actions>
+					<m:OverflowToolbarButton 
+						icon="sap-icon://edit" text="Editar" type="Emphasized" tooltip="edit" press=".onEdit" 
+						visible= "{= !${viewModel>/editable} &amp;&amp; ${viewModel>/mode} !== 'create' }">
+						<m:layoutData>
+							<m:OverflowToolbarLayoutData priority="NeverOverflow"/>
+						</m:layoutData>
+					</m:OverflowToolbarButton>
+
+					<m:OverflowToolbarButton 
+						icon="sap-icon://save" text="Guardar" type="Emphasized" tooltip="save" press=".onSave" 
+						visible= "{= ${viewModel>/editable} &amp;&amp; ${viewModel>/mode} !== 'create' }">
+						<m:layoutData>
+							<m:OverflowToolbarLayoutData priority="NeverOverflow"/>
+						</m:layoutData>
+					</m:OverflowToolbarButton>
+					
+					<m:OverflowToolbarButton icon="sap-icon://cancel" text="Cancelar" type="Negative" tooltip="cancel" press=".onCancel" 
+					visible= "{= ${viewModel>/editable} &amp;&amp; ${viewModel>/mode} !== 'create' }">
+						<m:layoutData>
+							<m:OverflowToolbarLayoutData priority="NeverOverflow"/>
+						</m:layoutData>
+					</m:OverflowToolbarButton>
+
+					<m:OverflowToolbarButton 
+						icon="sap-icon://create" text="Crear" type="Emphasized" tooltip="Crear" press=".onCreateForm" 
+						visible= "{= ${viewModel>/mode} === 'create'}">
+						<m:layoutData>
+							<m:OverflowToolbarLayoutData priority="NeverOverflow"/>
+						</m:layoutData>
+					</m:OverflowToolbarButton>
+
+				</actions>
+			</ObjectPageHeader>
+		</headerTitle>
+
+		<sections>
+			<ObjectPageSection titleUppercase="false" title='Información' id="DescripcionSection" >
+				
+				<subSections>
+					<ObjectPageSubSection>
+
+						<m:VBox class="sapUiSmallMargin">
+							<fo:Form id="FormChange480_12120"
+								editable="{viewModel>/editable}">
+								
+								<fo:layout>
+									<fo:ResponsiveGridLayout
+										labelSpanXL="4"
+										labelSpanL="4"
+										labelSpanM="12"
+										labelSpanS="12"
+										adjustLabelSpan="false"
+										emptySpanXL="0"
+										emptySpanL="0"
+										emptySpanM="0"
+										emptySpanS="0"
+										columnsXL="2"
+										columnsL="2"
+										columnsM="1"
+										singleContainerFullSize="false" />
+								</fo:layout>
+								<fo:formContainers>
+									<fo:FormContainer >
+										<fo:formElements>
+											<fo:FormElement label="ID">
+												<fo:fields>
+													<m:Input value="{SelectedPaymentProfile>/ID}" id="id_payment" editable="{viewModel>/editable}" visible="{= ${viewModel>/mode} === 'create'}"/>
+												</fo:fields>
+											</fo:FormElement>
+											<fo:FormElement label="Nombre">
+												<fo:fields>
+													<m:Input value="{SelectedPaymentProfile>/name}" id="name" editable="{viewModel>/editable}"/>
+												</fo:fields>
+											</fo:FormElement>
+											<fo:FormElement label="Descripción">
+												<fo:fields>
+													<m:TextArea id="description"
+														value="{SelectedPaymentProfile>/description}"
+														editable="{viewModel>/editable}"
+													/>
+												</fo:fields>
+											</fo:FormElement>
+											
+										</fo:formElements>
+									</fo:FormContainer>
+									
+								</fo:formContainers>
+							</fo:Form>
+						
+						</m:VBox>
+						
+					</ObjectPageSubSection>
+				</subSections>
+			</ObjectPageSection>
+
+			<ObjectPageSection titleUppercase="false" id="ConfiguracionSection" title="Configuración">
+				
+				<subSections>
+					<ObjectPageSubSection id="ConfiguracionSectionSS1">
+						<m:VBox class="sapUiSmallMargin">
+							<fo:Form id="FormChange480_12121"
+								editable="{viewModel>/editable}">
+								
+								<fo:layout>
+									<fo:ResponsiveGridLayout
+										labelSpanXL="4"
+										labelSpanL="4"
+										labelSpanM="12"
+										labelSpanS="12"
+										adjustLabelSpan="false"
+										emptySpanXL="0"
+										emptySpanL="0"
+										emptySpanM="0"
+										emptySpanS="0"
+										columnsXL="2"
+										columnsL="2"
+										columnsM="1"
+										singleContainerFullSize="false" />
+								</fo:layout>
+								<fo:formContainers>
+									<fo:FormContainer >
+										<fo:formElements >
+											<fo:FormElement  >
+												<fo:fields>
+													<m:CheckBox text="Aceptar pago Crédito" selected="{SelectedPaymentProfile>/paymentWCredits}" editable="{viewModel>/editable}"/>
+												</fo:fields>
+											</fo:FormElement>
+
+											<fo:FormElement  >
+												<fo:fields>
+													<m:CheckBox text="Aceptar pago con Métodos de Pago configurados" selected="{SelectedPaymentProfile>/paymentWMoney}" editable="{viewModel>/editable}" />
+												</fo:fields>
+											</fo:FormElement>
+											
+										</fo:formElements>
+									</fo:FormContainer>
+
+									<fo:FormContainer title="Limite de Ventas">
+											
+										<fo:formElements >
+											<fo:FormElement  >
+												<m:Label text="Tipo de Corte" labelFor="FrequencyCB" vAlign="Middle"/>
+												<m:ComboBox id="FrequencyCB" value="{SelectedPaymentProfile>/salesFrequency}" editable="{viewModel>/editable}">									
+													<core:Item key="Semanal" text="Semanal" />
+													<core:Item key="Quincenal" text="Quincenal" />
+													<core:Item key="Mensual" text="Mensual" />
+													<core:Item key="Semestral" text="Semestral" />
+													<core:Item key="Anual" text="Anual" />
+												</m:ComboBox>
+											</fo:FormElement>
+											
+
+											<fo:FormElement  >
+												<fo:fields>
+													<m:Label text="Cantidad Máxima por Usuario" labelFor="quantity" vAlign="Middle"/>
+													<m:Input value="{SelectedPaymentProfile>/maxQuantity}" type="Number" id="quantity" editable="{viewModel>/editable}"/>
+												</fo:fields>
+											</fo:FormElement>
+
+											<fo:FormElement >
+												<fo:fields>
+													<m:Label text="Fecha de Corte" labelFor="DP1" vAlign="Middle" />
+													<m:DatePicker
+														id="DP1"
+														placeholder="Enter Date"
+														value="{SelectedPaymentProfile>/courtDate}"
+														editable="{viewModel>/editable}"
+														class="sapUiSmallMarginBottom"/>
+												</fo:fields>
+											</fo:FormElement>
+											<fo:FormElement>
+												<fo:fields>
+													<m:CheckBox 
+														text="Aplicar cambios en al periodo actual" 
+														selected="{viewModel>/applyChangesRN}"
+														visible="{viewModel>/editable}"
+														editable="{viewModel>/editable}" />
+												</fo:fields>
+											</fo:FormElement>	
+
+											<fo:FormElement>
+												<m:List
+													delete=".onDeleteCourtType"
+													items="{
+														path: 'SelectedPaymentProfile>/CourtType'
+													}"
+													mode="{cfg>/listMode}"
+													noDataText="No hay productos"
+													selectionChange=".onEntryListSelect">
+													<m:headerToolbar>
+														<m:Toolbar >
+															<m:Title
+																level="H6"
+																text="Cortes"
+																titleStyle="H6"/>
+														</m:Toolbar>
+													</m:headerToolbar>
+													<m:items>
+														<!-- <m:ObjectListItem 
+															intro="{cartProducts>Quantity} x"
+															type="{cfg>/listItemType}"
+															icon="
+																{imageModel>/path}{cartProducts>image}
+																
+															"
+															title="{cartProducts>product_name}"
+															number="{
+																path : 'cartProducts>price',
+																formatter : '.formatter.price'
+															}"
+															numberUnit="USD"
+															press=".onEntryListPress"
+															iconDensityAware="false">
+														
+															<m:firstStatus>
+																<ObjectStatus id="_IDGenObjectStatus1"
+																	text="{
+																		path : 'cartProducts>credit_available',
+																		formatter : '.formatter.statusText'
+																	}"
+																	state="{
+																		path : 'cartProducts>Status',
+																		formatter : '.formatter.statusState'
+																	}"/>
+															</m:firstStatus>
+														</m:ObjectListItem> -->
+														<m:InputListItem label="{SelectedPaymentProfile>CourtTypeID}" press=".navigateToCourtTypeDetail" >
+																<m:Input
+																	editable="{viewModel>/editable}"
+																	value="{SelectedPaymentProfile>maxQuantity}"
+																	type="Number" />
+														</m:InputListItem>
+														<!-- <m:StandardListItem
+															title="{SelectedPaymentProfile>CourtTypeID}"
+															description="{SelectedPaymentProfile>descripcion}"
+															counter="{SelectedPaymentProfile>maxQuantity}"/> -->
+													</m:items>
+												</m:List>
+											</fo:FormElement>									
+										</fo:formElements>
+									</fo:FormContainer>
+								</fo:formContainers>
+							</fo:Form>
+						</m:VBox>
+					</ObjectPageSubSection>
+				</subSections>
+			</ObjectPageSection>
+		</sections>
+	</ObjectPageLayout>
+</mvc:View>

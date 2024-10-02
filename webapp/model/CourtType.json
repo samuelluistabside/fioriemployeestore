@@ -1,0 +1,17 @@
+{
+    "PaymentProfile": [
+        {
+            "ID": "MENSUAL_EMPLEADOS",
+"descripcion": "Corte para empleados",            "salesFrequency": "Mensual",
+            "courtDate": "2024-01-03", 
+            "maxQuantity": 5
+        },
+        {
+            "ID": "ANUAL_ALTOSCARGOS",
+            "descripcion": "Corte anual para altos cargos",
+            "salesFrequency": "Anual",
+            "courtDate": "2024-01-03", 
+            "maxQuantity": 5
+        }
+    ]
+}

@@ -1,0 +1,72 @@
+<mvc:View
+	controllerName="employeestore.controller.Orders"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m"
+	height="100%">
+	<Page id="ContentPage" showHeader="false">
+		
+		<Table id="idProductsTable2" items="{/Orders}">
+            <headerToolbar>
+                <OverflowToolbar id="headerToolbar">
+                    <Button
+						id="backButton"
+						tooltip="Volver"
+						icon="sap-icon://nav-back"
+						press="handleBackMainPressed"/>
+					<Title id="titleProducts2" text="Ordenes" level="H2"/>
+					<ToolbarSpacer id="toolbarSpacer"/>
+					<Button
+						id="sortButton"
+						tooltip="Sort"
+						icon="sap-icon://sort"
+						press="handleSortButtonPressed"/>
+					<Button
+						id="filterButton"
+						tooltip="Filter"
+						icon="sap-icon://filter"
+						press="handleFilterButtonPressed"/>
+					<Button
+						id="groupButton"
+						tooltip="Group"
+						icon="sap-icon://group-2"
+						press="handleGroupButtonPressed"/>
+					<ToggleButton id="contextMenuToggleButton"
+						icon="sap-icon://menu"
+						tooltip="Enable Custom Context Menu"
+						press="onToggleContextMenu" />
+				</OverflowToolbar>
+            </headerToolbar>
+            <columns>
+                <Column id="orderColumn" width="12em">
+                    <Text text="Orden de Compra" />
+                </Column>
+                <Column id="statusColumn" width="12em">
+                    <Text text="Status de la Orden" />
+                </Column>
+                <Column id="createdColumn" width="12em">
+                    <Text text="Creado el" />
+                </Column>
+                <Column id="amountColumn" width="12em">
+                    <Text text="Monto" />
+                </Column>
+            </columns>
+            <items>
+                <ColumnListItem vAlign="Middle">
+                    <cells>
+                        <!-- Enlace para Orden de Compra -->
+                        <Link text="{OrderId}" press="onOrderLinkPress"/>
+                        
+                        <!-- Texto con color según el status -->
+                        <Text text="{Status}" class="{path: 'Status', formatter: '.formatter.statusColor'}"/>
+                        
+                        <!-- Texto para la fecha -->
+                        <Text text="{CreatedAt}" />
+                        
+                        <!-- Texto para el monto -->
+                        <Text text="{Amount}" />
+                    </cells>
+                </ColumnListItem>
+            </items>
+        </Table>
+	</Page>
+</mvc:View>
