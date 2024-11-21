@@ -1,0 +1,11 @@
+<mvc:View 
+    controllerName="employeestore.controller.PaymentProfileDetail"
+	xmlns:core="sap.ui.core"
+    xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.uxap"
+	xmlns:m="sap.m"
+	xmlns:f="sap.f"
+	xmlns:fo="sap.ui.layout.form"
+	height="100%">
+
+</mvc:View>

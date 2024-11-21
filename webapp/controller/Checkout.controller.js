@@ -1174,7 +1174,7 @@ sap.ui.define([
 
 		onReturnToShopButtonPress: function () {
 			this._setLayout("Two"); // Cambiar el diseño
-			sap.ui.core.UIComponent.getRouterFor(this).navTo("Cart");
+			sap.ui.core.UIComponent.getRouterFor(this).navTo("RouteMain",);
 
 		},
 

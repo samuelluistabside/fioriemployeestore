@@ -117,10 +117,10 @@
       "routes": [
         {
           "name": "RouteMain",
-          "pattern": "",
-          "target": [
+          "pattern": "RouteMain",
+          "target": 
             "TargetMain"
-          ]
+          
         },
         {
           "pattern": "OrderDetail/{orderId}",
